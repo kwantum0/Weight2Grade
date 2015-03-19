@@ -27,28 +27,44 @@
 				<li>Physics</li>
 			</ul>
 
-			<div id="progressBar"></div>
+			<div class="progressBar"></div>
 
 			<footer>
 				<input type="button" value="Add Class"/>
 			</footer>
 		</div>
-		<div data-role="page" id="">
-
+		<div data-role="page" id="addClass">
+			<form>
+				<label>Name of class: </label>
+				<br/>
+				<input type="text">
+				<br/>
+				<label>Number of Credits: </label>
+				<br/>
+				<input type="text">
+				<br/>
+				<!--Submit goes to class view-->
+				<input type="submit">
+			</form>
 		</div>
-		<div data-role="page" id="">
+		<div data-role="page" id="classView">
+			<!-- 
+				list of assignments with grade
+				progress bar at bottem
+			-->
+			<p>Biology: 78%</p>
+			<p>English: 84%</p>
+			<p>Math: 58%</p>
+			<p>Music: 37%</p>
+			<p>Physics: 92%</p>
 
+			<div class="progressBar"></div>
+			
+			<footer>
+				<input type="button" value="Back to Home Page">
+			</footer>
 		</div>
-		<div data-role="page" id="">
-
-		</div>
-		<div data-role="page" id="">
-
-		</div>
-		<div data-role="page" id="">
-
-		</div>
-		<div data-role="page" id="">
+		<div data-role="page" id="assignmentView">
 
 		</div>
 	</body>
