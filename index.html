@@ -33,26 +33,54 @@
 			<h1>Weight2Grade</h1>
 		
 		
-			<ul>
-				<li>Biology</li>
-				<div class="progress">
-					<div class="progress-bar progress-bar-sucess" style="width: 35%">
-						<span>35% Complete</span>
+			<ul data-role="listview" class="ui-listview">
+				<li>
+					<span>Biology</span>
+					<div class="progress">
+						<div class="progress-bar progress-bar-sucess" style="width: 35%">
+							<span>35% Complete</span>
+						</div>
 					</div>
-				</div>
-				<li>English</li>
-				<li>Math</li>
-				<li>Music</li>
-				<li>Physics</li>
+				</li>
+				<li>
+					English
+					<div class="progress">
+						<div class="progress-bar progress-bar-sucess" style="width: 35%">
+							<span>35% Complete</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					Math
+					<div class="progress">
+						<div class="progress-bar progress-bar-sucess" style="width: 35%">
+							<span>35% Complete</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					Music
+					<div class="progress">
+						<div class="progress-bar progress-bar-sucess" style="width: 35%">
+							<span>35% Complete</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					Physics
+					<div class="progress">
+						<div class="progress-bar progress-bar-sucess" style="width: 35%">
+							<span>35% Complete</span>
+						</div>
+					</div>
+				</li>
 			</ul>
 
-			<div class="progressBar"></div>
-
 			<footer>
-				<input type="button" value="Add Class"/>
+				<a href="#addClass" data-type="button">Add Class</a>
 			</footer>
 		</div>
-		<div data-role="page" id="addClass">
+		<div data-role="page" id="#addClass">
 			<form>
 				<label>Name of class: </label>
 				<br/>
@@ -66,7 +94,7 @@
 				<input type="submit">
 			</form>
 		</div>
-		<div data-role="page" id="classView">
+		<div data-role="page" id="#classView">
 			<!-- 
 				list of assignments with grade
 				progress bar at bottem
