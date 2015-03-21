@@ -2,15 +2,18 @@
 <html lang="en">
 	<head>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
         <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="themes/Green.min.css" />
-<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <link rel="stylesheet" href="bootstrap/media.css"/>
+        <link rel="stylesheet" href="css/bootstrap.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" media="screen"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
 	</head>
 	<body>
 		<!--don't know if this will work, navbar might need to be in the page element-->
@@ -27,19 +30,60 @@
                         </ul>
                     </div><!-- /navbar -->
                 </div><!-- /header -->
-			<h1>Weight2Grade</h1>
-		
-		
-			<!--prototype temp-->
-			<ul>
-				<li>Biology</li>
-				<li>English</li>
-				<li>Math</li>
-				<li>Music</li>
-				<li>Physics</li>
-			</ul>
-
-			<div class="progressBar"></div>
+            <div data-role="controlgroup">
+                <a href="#" class="ui-btn ui-corner-all"><h1>Biology</h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" id="biology" style="width: 50%">
+                        <span class="sr-only">50% Complete (success)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                    </div>
+                </a>
+                <a href="#" class="ui-btn ui-corner-all"><h1>Biology</h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" id="biology" style="width: 50%">
+                        <span class="sr-only">50% Complete (success)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                    </div>
+                </a>
+                <a href="#" class="ui-btn ui-corner-all"><h1>Biology</h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" id="biology" style="width: 50%">
+                        <span class="sr-only">50% Complete (success)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                    </div>
+                </a>
+                <a href="#" class="ui-btn ui-corner-all"><h1>Biology</h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" id="biology" style="width: 50%">
+                        <span class="sr-only">50% Complete (success)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                    </div>
+                </a>
+                <a href="#" class="ui-btn ui-corner-all"><h1>Biology</h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" id="biology" style="width: 50%">
+                        <span class="sr-only">50% Complete (success)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                    </div>
+                </a>
+            </div><!-- Control Group -->
+			
+			
 
 			<footer>
 				<input type="button" value="Add Class"/>
@@ -70,8 +114,7 @@
 			<p>Music: 37%</p>
 			<p>Physics: 92%</p>
 
-			<div class="progressBar"></div>
-
+			
 			<footer>
 				<input type="button" value="Back to Home Page">
 			</footer>
