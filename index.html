@@ -55,7 +55,7 @@
 						</a>
 				</li>
 				<li>
-					<a href="#" class="ui-link-inherit">
+				<a href="#" class="ui-link-inherit">
 						<h2>English</h2>
 						<p class="ui-li-aside">2 / 10</p>
 						<div class="progress">
@@ -119,6 +119,10 @@
 				<br/>
 				<input type="text">
 				<br/>
+				<label>Course Code: </label>
+				<br/>
+				<input type="text">
+				<br/>
 				<label>Number of Credits: </label>
 				<br/>
 				<input type="text">
@@ -133,10 +137,6 @@
 				progress bar at bottem
 			-->
 			<p>Biology: 78%</p>
-			<p>English: 84%</p>
-			<p>Math: 58%</p>
-			<p>Music: 37%</p>
-			<p>Physics: 92%</p>
 
 			<div class="progress">
               <div class="progress-bar progress-bar-success" style="width: 35%">
@@ -156,8 +156,13 @@
 		<div data-role="page" id="assignmentView">
 
 		</div>
-		<div data-role="page" id="settings">
+		<div data-role="page" id="options">
+			<label>Default Pass Grade: </label>
+			<input type="text" value="55%" style="text-align: center;" />
 
+			<footer>
+				<a href="#home" class="ui-btn">Back to home page</a>
+			</footer>
 		</div>
 	</body>
 </html>
