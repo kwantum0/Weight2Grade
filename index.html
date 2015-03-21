@@ -107,7 +107,6 @@
 		</div><!--end home-->
 
 		<!--ADDCLASS-->
-		<!--style a bit better-->
 		<div data-role="page" id="addClass">
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
@@ -127,10 +126,41 @@
 				<br/>
 				<input type="text">
 				<br/>
-				<!--Submit goes to class view-->
-				<a href="#home" class="ui-btn">Submit</a>
+				
+				<a href="#home" data-role="button" data-inline="true">Submit</a>
+				<a href="#home" data-role="button" data-inline="true">Cancle</a>
 			</form>
 		</div><!--end addClass-->
+
+		<!--CREATEASSIGNMENT-->
+		<div data-role="page" id="createAssignment">
+			<div data-role="header" style="overflow:hidden;" data-theme="a">
+           		<h1>Weight2Grade</h1>
+           		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
+            </div>
+            <h2>Create Assignment</h2>
+
+            <form>
+				<label>Assignment Name: </label>
+				<br/>
+				<input type="text">
+				<br/>
+				<label>Weight: </label>
+				<br/>
+				<input type="text">
+				<br/>
+				<label>Weight Achived: </label>
+				<br/>
+				<input type="text">
+				<br/>
+				<label>Is this a bonus assignment?</label>
+				<input type="checkbox">
+				<br/>
+
+				<a href="#classView" data-role="button" data-inline="true">Submit</a>
+				<a href="#classView" data-role="button" data-inline="true">Cancle</a>
+			</form>
+		</div><!--end createAssignment-->
 
 		<!--CLASSVIEW-->
 		<div data-role="page" id="classView">
@@ -191,18 +221,39 @@
 			</ul>
 
 			<footer>
-				<a href="#home" class="ui-btn">Back to Home Page</a>
+				<a href="#home" data-role="button" data-inline="true">Back to Home Page</a>
+				<a href="#createAssignment" data-role="button" data-inline="true">Add Assignment</a>
 			</footer>
 		</div><!--end classView-->
 
 		<!--EDITASSIGNMENTS-->
-		<!--actually make a page here-->
 		<div data-role="page" id="editAssignment">
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
            		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
             </div>
+            <h2>Edit Assignment 1</h2>
 
+            <form>
+				<label>Assignment Name: </label>
+				<br/>
+				<input type="text" value="Assignment 1">
+				<br/>
+				<label>Weight: </label>
+				<br/>
+				<input type="text" value = 10%>
+				<br/>
+				<label>Weight Achived: </label>
+				<br/>
+				<input type="text" value="6.5%">
+				<br/>
+				<label>Is this a bonus assignment?</label>
+				<input type="checkbox">
+				<br/>
+
+				<a href="#classView" data-role="button" data-inline="true">Submit</a>
+				<a href="#classView" data-role="button" data-inline="true">Cancle</a>
+			</form>
 		</div><!--end editAssignments-->
 
 		<!--OPTIONS-->
