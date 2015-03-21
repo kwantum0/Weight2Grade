@@ -24,40 +24,18 @@ if($_SERVER["REQUEST_METHOD"] == "GET")
 // display page
 switch($action)
 {
-	case "settings":
-		makeHeader(3);
-		readfile("/pages/setting.html")
-		makeFooter(3);
+	case "options":
+		printHeader(2);
+		printFooter(2);
 		break;
-	case "deleteassignment":
-		deleteAssignment($aid);
-		goto a;
-	case "addassignment":
-		makeAssignment($aid);
-		goto a;
-	case "assignment":
-		a:
-		makeHeader(2);
-		readfile("/pages/assignment.html")
-		makeFooter(2);
-		break;
-	case "deleteclass":
-		deleteAssignment($aid);
-		goto c;
-	case "addclass":
-		makeClass($cid);
-		goto c;
-	case "class":
-		c:
-		makeHeader(1);
-		readfile("/pages/class.html")
-		makeFooter(1);
+	case "list":
+		printHeader(1);
+		printFooter(1);
 		break;
 	case "home":
 	default:
-		makeHeader(0);
-		readfile("/pages/index.html")
-		makeFooter(0);
+		printHeader(0);
+		printFooter(0);
 		break;
 }
 ?>

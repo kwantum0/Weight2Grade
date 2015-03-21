@@ -27,34 +27,42 @@ function parse_int($data)
 /****************************
  *	VIEW BUILDER FUNCTIONS	*
  ****************************/
-function printFileStart()
+function printHeader($int)
 {
+	$activeStr = "class=\"ui-btn-active ui-state-persist\"";
 	echo "<!DOCTYPE HTML>";
 	echo "<html lang=\"en\">";
-	echo "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\" />";
+	echo "<head>";
+	echo "<meta charset=\"UTF-8\">";
+	echo "<meta name=\"author\" content=\"Daniel Franz, Chris Mosey, Zachary Taylor\">";
+	echo "<meta name=\"description\" content=\"Mobile Application Development 2015 - Final Project\">";
+	echo "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no\" />";
 	echo "<title>Weight2Grade App</title>";
-	echo ""
+	echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css\" />";
+	echo "</head>";
+	echo "<body>";
+	echo "<div id=\"activity\" data-role=\"page\">
+			<div data-role=\"header\">
+			<h1>Your Activity</h1>	
+				<div data-role=\"navbar\" data-iconpos=\"bottom\">
+					<ul>
+						<li><a data-icon=\"star\""+ ($int == 0 ? $activeStr : "") +"href=\"index.php?action=home\">Home</a></li>
+						<li><a data-icon=\"bullets\""+ ($int == 1 ? $activeStr : "") +"href=\"index.php?action=list\">Todo List</a></li>
+						<li><a data-icon=\"gear\""+ ($int == 2 ? $activeStr : "") +"href=\"index.php?action=options\">Options</a></li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /header -->"
 }
-function makeHeader($actNumb)
+function printFooter($int)
 {
-	printFileStart();
-	printDependancies();
 	echo
-	"<div data-role=\"header\" style=\"overflow:hidden;\" data-theme=\"a\">
-		<h1>Weight2Grade</h1>
-		<a href=\"#\" data-icon=\"gear\"  class=\"ui-btn-left\">Options</a>
-		<div data-role=\"navbar\">
-			<ul>
-				<li><a href=\"#\">One</a></li>
-				<li><a href=\"#\">Two</a></li>
-				<li><a href=\"#\">Three</a></li>
-			</ul>
-		</div><!-- /navbar -->
-	</div><!-- /header -->"
-}
-
-function makeFooter($actNumb)
-{
-	
+	"	<div data-role=\"footer\">
+			<h3> &copy; <span class=\"year\">"+ date("Y") +"</span></h3>
+		</div><!-- /footer -->
+	</div><!-- /page -->";
+	echo "<script src=\"http://code.jquery.com/jquery-1.11.1.min.js\"></script>";
+	echo "<script src=\"http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js\"></script>";
+	echo "</body>";
+	echo "</html>";
 }
 ?>
