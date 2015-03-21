@@ -22,6 +22,7 @@
 		</style>
 	</head>
 	<body>
+		<!--HOME-->
 		<div data-role="page" id="home">
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
@@ -103,7 +104,10 @@
 			<footer>
 				<a href="#addClass" class="ui-btn">Add Class</a>
 			</footer>
-		</div>
+		</div><!--end home-->
+
+		<!--ADDCLASS-->
+		<!--style a bit better-->
 		<div data-role="page" id="addClass">
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
@@ -126,7 +130,9 @@
 				<!--Submit goes to class view-->
 				<a href="#home" class="ui-btn">Submit</a>
 			</form>
-		</div>
+		</div><!--end addClass-->
+
+		<!--CLASSVIEW-->
 		<div data-role="page" id="classView">
 			<!-- 
 				list of assignments with grade
@@ -141,13 +147,10 @@
 				<li>
 					<a href="#editAssignment" class="ui-link-inherit">
 						<h2>Assignment 1</h2>
-						<p class="ui-li-aside">3 / 6</p>
+						<p class="ui-li-aside">7.5 / 10</p>
 						<div class="progress">
-							<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
-								35%
-							</div>
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
-								25%
+							<div style="min-width: 2.5em; width: 75%" role="progressbar" class="progress-bar progress-bar-default">
+								75%
 							</div>
 						</div>
 					</a>
@@ -155,13 +158,10 @@
 				<li>
 					<a href="#editAssignment" class="ui-link-inherit">
 						<h2>Assignment 2</h2>
-						<p class="ui-li-aside">3 / 6</p>
+						<p class="ui-li-aside">8.3 / 10</p>
 						<div class="progress">
-							<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
-								35%
-							</div>
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
-								25%
+							<div style="min-width: 2.5em; width: 83%" role="progressbar" class="progress-bar progress-bar-default">
+								83%
 							</div>
 						</div>
 					</a>
@@ -169,13 +169,10 @@
 				<li>
 					<a href="#editAssignment" class="ui-link-inherit">
 						<h2>Assignment 3</h2>
-						<p class="ui-li-aside">3 / 6</p>
+						<p class="ui-li-aside">0 / 10</p>
 						<div class="progress">
-							<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
-								35%
-							</div>
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
-								25%
+							<div style="min-width: 2.5em; width: 0%" role="progressbar" class="progress-bar progress-bar-default">
+								0%
 							</div>
 						</div>
 					</a>
@@ -183,13 +180,10 @@
 				<li>
 					<a href="#editAssignment" class="ui-link-inherit">
 						<h2>Assignment 4</h2>
-						<p class="ui-li-aside">3 / 6</p>
+						<p class="ui-li-aside">0 / 10</p>
 						<div class="progress">
-							<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
-								35%
-							</div>
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
-								25%
+							<div style="min-width: 2.5em; width: 0%" role="progressbar" class="progress-bar progress-bar-default">
+								0%
 							</div>
 						</div>
 					</a>
@@ -199,15 +193,22 @@
 			<footer>
 				<a href="#home" class="ui-btn">Back to Home Page</a>
 			</footer>
-		</div>
+		</div><!--end classView-->
+
+		<!--EDITASSIGNMENTS-->
+		<!--actually make a page here-->
 		<div data-role="page" id="editAssignment">
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
            		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
             </div>
 
-		</div>
+		</div><!--end editAssignments-->
+
+		<!--OPTIONS-->
 		<div data-role="page" id="options">
+			<!--should this be based on class or just in general?
+				should we add anything else?-->
         	<div data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
            		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
@@ -218,6 +219,6 @@
 			<footer>
 				<a href="#home" class="ui-btn">Back to home page</a>
 			</footer>
-		</div>
+		</div><!--end options-->
 	</body>
 </html>
