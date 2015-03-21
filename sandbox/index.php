@@ -12,7 +12,7 @@ require_once('config.php');
 
 // get user action
 $action = "";
-$cid, $aid = 0;
+$cid = $aid = 0;
 if($_SERVER["REQUEST_METHOD"] == "GET") 
 {
 	$action = format($_GET["action"]);
