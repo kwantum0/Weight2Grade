@@ -1,25 +1,26 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
-        <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-        <link rel="stylesheet" href="themes/Green.min.css" />
-        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-        <link rel="stylesheet" href="bootstrap/media.css"/>
-        <link rel="stylesheet" href="css/bootstrap.css"/>
-        <link rel="stylesheet" href="css/bootstrap-theme.css"/>
-		<style>
+		<meta charset="UTF-8" />
+		<meta name="author" content="Daniel Franz, Chris Mosey, Zachary Taylor" />
+		<meta name="description" content="Mobile Application Development 2015 - Final Project" />
+		
+		<!-- For Mobile App Display -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no" />
+		
+		<title>Weight2Grade</title>
+		
+		<!-- Style dependancies -->
+		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<style type="text/css">
 			.progress-bar {
 				font-weight: 100;
 			}
-		</style>
+			body > div > h1 {
+				padding-left: 16px;
+			}
+		</style>	
 	</head>
 	<body>
 		<div data-role="page" id="home">
@@ -27,7 +28,7 @@
            		<h1>Weight2Grade</h1>
            		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
             </div><!-- /header -->
-			<h1>Weight2Grade</h1>
+			<h1>List of Classes</h1>
 		
 		
 			<ul data-role="listview" class="ui-listview">
@@ -100,7 +101,7 @@
 				</li>
 			</ul>
 
-			<footer data-role="footer" data-position="fixed">
+			<footer data-role="footer">
 				<a href="#addClass" class="ui-btn">Add Class</a>
 			</footer>
 		</div>
@@ -155,5 +156,8 @@
 				<a href="#home" class="ui-btn">Back to home page</a>
 			</footer>
 		</div>
+	<!-- SCRIPTS -->
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	</body>
 </html>
