@@ -17,147 +17,112 @@
 			.progress-bar {
 				font-weight: 100;
 			}
-			body > div > h1 {
-				padding-left: 16px;
-			}
 		</style> 	
 	</head>
 	<body>
+
+<!-- HOME PAGE -->
 		<div data-role="page" id="home">
-        	<div data-role="header" style="overflow:hidden;" data-theme="a">
+        	<header data-role="header" style="overflow:hidden;" data-theme="a">
            		<h1>Weight2Grade</h1>
            		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
-            </div><!-- /header -->
-			<h1>List of Classes</h1>
-		
-		
-			<ul data-role="listview" class="ui-listview">
-				<li>
-					<a href="#classView" class="ui-link-inherit">
-						<h2>Biology</h2>
-						<p class="ui-li-aside">3 / 6</p>
-						<div class="progress">
-							<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
-								35%
+            </header>
+			<section data-role="content">
+				<h1>List of Classes</h1>		
+				<ul data-role="listview" class="ui-listview">
+					<li>
+						<a href="#classView" class="ui-link-inherit">
+							<h2>Biology</h2>
+							<p class="ui-li-aside">3 / 6</p>
+							<div class="progress">
+								<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
+									35%
+								</div>
+								<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
+									25%
+								</div>
 							</div>
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-warning">
-								25%
+							</a>
+					</li>
+					<li>
+						<a href="#classView" class="ui-link-inherit">
+							<h2>English</h2>
+							<p class="ui-li-aside">2 / 10</p>
+							<div class="progress">
+								<div style="min-width: 2.5em; width: 24%" role="progressbar" class="progress-bar progress-bar-default">
+									24%
+								</div>
 							</div>
-						</div>
 						</a>
-				</li>
-				<li>
-					<a href="#classView" class="ui-link-inherit">
-						<h2>English</h2>
-						<p class="ui-li-aside">2 / 10</p>
-						<div class="progress">
-							<div style="min-width: 2.5em; width: 24%" role="progressbar" class="progress-bar progress-bar-default">
-								24%
+					</li>
+					<li>
+						<a href="#classView" class="ui-link-inherit">
+							<h2>Math</h2>
+							<p class="ui-li-aside">4 / 15</p>
+							<div class="progress">
+								<div style="min-width: 2.5em; width: 42%" role="progressbar" class="progress-bar progress-bar-default">
+									42%
+								</div>
+								<div style="min-width: 2.5em; width: 8%" role="progressbar" class="progress-bar progress-bar-warning">
+									8%
+								</div>
 							</div>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="#classView" class="ui-link-inherit">
-						<h2>Math</h2>
-						<p class="ui-li-aside">4 / 15</p>
-						<div class="progress">
-							<div style="min-width: 2.5em; width: 42%" role="progressbar" class="progress-bar progress-bar-default">
-								42%
+						</a>
+					</li>
+					<li>
+						<a href="#classView" class="ui-link-inherit">
+							<h2>Music</h2>
+							<p class="ui-li-aside">2 / 8</p>
+							<div class="progress">
+								<div style="min-width: 2.5em; width: 10%" role="progressbar" class="progress-bar progress-bar-default">
+									10%
+								</div>
+								<div style="min-width: 2.5em; width: 15%" role="progressbar" class="progress-bar progress-bar-warning">
+									15% 
+								</div>
 							</div>
-							<div style="min-width: 2.5em; width: 8%" role="progressbar" class="progress-bar progress-bar-warning">
-								8%
+						</a>
+					</li>
+					<li>
+						<a href="#classView" class="ui-link-inherit">
+							<h2>Physics</h2>
+							<p class="ui-li-aside">3 / 8</p>
+							<div class="progress">
+								<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-default">
+									25%
+								</div>
+								<div style="min-width: 2.5em; width: 15%" role="progressbar" class="progress-bar progress-bar-warning">
+									15%
+								</div>
 							</div>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="#classView" class="ui-link-inherit">
-						<h2>Music</h2>
-						<p class="ui-li-aside">2 / 8</p>
-						<div class="progress">
-							<div style="min-width: 2.5em; width: 10%" role="progressbar" class="progress-bar progress-bar-default">
-								10%
-							</div>
-							<div style="min-width: 2.5em; width: 15%" role="progressbar" class="progress-bar progress-bar-warning">
-								15% 
-							</div>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="#classView" class="ui-link-inherit">
-						<h2>Physics</h2>
-						<p class="ui-li-aside">3 / 8</p>
-						<div class="progress">
-							<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-default">
-								25%
-							</div>
-							<div style="min-width: 2.5em; width: 15%" role="progressbar" class="progress-bar progress-bar-warning">
-								15%
-							</div>
-						</div>
-					</a>
-				</li>
-			</ul>
-
-			<footer data-role="footer">
-				<a href="#addClass" class="ui-btn">Add Class</a>
+						</a>
+					</li>
+					<li class="ui-grid-a">
+						<div class="ui-block-a"></div>
+						<a class="ui-block-b ui-btn ui-icon-plus ui-btn-icon-left">Add Class</a>
+					</li>
+				</ul>
+			</section>
+			<footer data-role="footer" data-position="fixed">
+				<h4>&copy 2015</h4>
 			</footer>
-		</div>
-		<div data-role="page" id="addClass">
-			<form>
-				<label>Name of class: </label>
-				<br/>
-				<input type="text">
-				<br/>
-				<label>Course Code: </label>
-				<br/>
-				<input type="text">
-				<br/>
-				<label>Number of Credits: </label>
-				<br/>
-				<input type="text">
-				<br/>
-				<!--Submit goes to class view-->
-				<a href="#home" class="ui-btn">Submit</a>
-			</form>
-		</div>
-		<div data-role="page" id="classView">
-			<!-- 
-				list of assignments with grade
-				progress bar at bottem
-			-->
-			<p>Biology: 78%</p>
+		</div><!-- end page -->
 
-			<div class="progress">
-              <div class="progress-bar progress-bar-success" style="width: 35%">
-                <span class="sr-only">35% Complete (success)</span>
-              </div>
-              <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
-                <span class="sr-only">20% Complete (warning)</span>
-              </div>
-              <div class="progress-bar progress-bar-danger" style="width: 10%">
-                <span class="sr-only">10% Complete (danger)</span>
-              </div>
-            </div>
-			<footer>
-				<a href="#home" class="ui-btn">Back to Home Page</a>
+<!-- ADD CLASS PAGE -->
+		<div data-role="page" id="home">
+        	<header data-role="header" style="overflow:hidden;" data-theme="a">
+           		<h1>Weight2Grade</h1>
+           		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
+            </header>
+			<section data-role="content">
+			</section>
+			<footer data-role="footer" class="ui-grid-b">
+				<a href="#addClass" class="ui-btn ui-grid-a">Add Class</a>
+				<span class="ui-grid-c">&copy 2015</span>
 			</footer>
-		</div>
-		<div data-role="page" id="assignmentView">
-
-		</div>
-		<div data-role="page" id="options">
-			<label>Default Pass Grade: </label>
-			<input type="text" value="55%" style="text-align: center;" />
-
-			<footer>
-				<a href="#home" class="ui-btn">Back to home page</a>
-			</footer>
-		</div>
-	<!-- SCRIPTS -->
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		</div><!-- end page -->
+<!-- SCRIPTS -->
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	</body>
 </html>
