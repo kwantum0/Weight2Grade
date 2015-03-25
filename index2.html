@@ -12,29 +12,68 @@
 		
 		<!-- Style dependancies -->
 		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<style type="text/css">
-			.progress-bar { font-weight: 100; }
-			.ui-slider-track.ui-mini { margin: 0 15px 0 68px; }
-		</style> 	
+			.progress-bar, .badge { 
+				font-weight: 100; 
+				font-size: .75em; 
+			}
+			.ui-slider-track.ui-mini { 
+				margin: 0 15px 0 68px; 
+			}
+			.arrow-up {
+				width: 0; 
+				height: 0; 
+				margin-bottom: -2px;
+				margin-left: auto;
+				margin-right: auto;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-bottom: 8px solid #777777;
+			}
+			.arrow-up-success {
+				border-bottom: 8px solid #5cb85c;
+			}
+			.badge-box{
+				position: absolute; 
+				margin-top: 20px;
+			}
+			.hasBadges > li > a {
+				padding-bottom: 20px;
+			}
+		</style>
 	</head>
 	<body>
 
 <!-- HOME PAGE -->
 		<div data-role="page" id="home">
-        	<header data-role="header" style="overflow:hidden;" data-theme="a" data-tap-toggle="false">
+        	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
            		<h1>Weight2Grade</h1>
-           		<a href="#options" data-icon="gear" class="ui-btn-right">Options</a>
+           		<a href="#options" data-icon="gear" class="ui-btn-right" style="padding-bottom: 5px">Options</a>
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home" class="ui-btn-active">Class View</a></li>
+						<li><a href="#list">Priority View</a></li>
+					</ul>
+				</nav>
             </header>
 			<section data-role="content">
 				<h1>List of Classes</h1>	
-					<ul data-role="listview" data-inset="true">
+					<ul data-role="listview" class="hasBadges">
 						<li data-icon="false">
 							<a href="#classView" class="ui-link-inherit">
 								<h2>BIO 2040</h2>
 								<p> Introduction to gerontology. </p>
 								<p class="ui-li-aside">3 / 6</p>
 								<div class="progress">
+									<div class="badge-box" style="margin-left: 50%">
+										<div class="arrow-up"></div>
+										<span class="badge" style="padding: 4px; width: 2em; text-align: center;">55</span>
+									</div>
+									<div class="badge-box" style="margin-left: 70%">
+										<div class="arrow-up arrow-up-success"></div>
+										<span class="badge badge-success" style="padding: 4px; width: 2em; text-align: center;">75</span>
+									</div>
 									<div style="min-width: 2.5em; width: 35%" role="progressbar" class="progress-bar progress-bar-default">
 										35%
 									</div>
@@ -50,6 +89,14 @@
 								<p> Comparative literature II. </p>
 								<p class="ui-li-aside">2 / 10</p>
 								<div class="progress">
+									<div class="badge-box" style="margin-left: 50%">
+										<div class="arrow-up"></div>
+										<span class="badge" style="padding: 4px; width: 2em; text-align: center;">55</span>
+									</div>
+									<div class="badge-box" style="margin-left: 70%">
+										<div class="arrow-up arrow-up-success"></div>
+										<span class="badge badge-success" style="padding: 4px; width: 2em; text-align: center;">75</span>
+									</div>									
 									<div style="min-width: 2.5em; width: 24%" role="progressbar" class="progress-bar progress-bar-default">
 										24%
 									</div>
@@ -62,6 +109,14 @@
 								<p> Advanced multivariable calculus. <br> Section 1 with Ms.Bennett. </p>
 								<p class="ui-li-aside">4 / 15</p>
 								<div class="progress">
+									<div class="badge-box" style="margin-left: 50%">
+										<div class="arrow-up"></div>
+										<span class="badge" style="padding: 4px; width: 2em; text-align: center;">55</span>
+									</div>
+									<div class="badge-box" style="margin-left: 65%">
+										<div class="arrow-up arrow-up-success"></div>
+										<span class="badge badge-success" style="padding: 4px; width: 2em; text-align: center;">70</span>
+									</div>									
 									<div style="min-width: 2.5em; width: 42%" role="progressbar" class="progress-bar progress-bar-default">
 										42%
 									</div>
@@ -77,6 +132,14 @@
 								<p> ELECTIVE. Classical music analysis and composition. </p>
 								<p class="ui-li-aside">2 / 8</p>
 								<div class="progress">
+									<div class="badge-box" style="margin-left: 50%">
+										<div class="arrow-up"></div>
+										<span class="badge" style="padding: 4px; width: 2em; text-align: center;">55</span>
+									</div>
+									<div class="badge-box" style="margin-left: 85%">
+										<div class="arrow-up arrow-up-success"></div>
+										<span class="badge badge-success" style="padding: 4px; width: 2em; text-align: center;">90</span>
+									</div>									
 									<div style="min-width: 2.5em; width: 10%" role="progressbar" class="progress-bar progress-bar-default">
 										10%
 									</div>
@@ -92,6 +155,14 @@
 								<p> ELECTIVE. Behavioural psychology III. </p>
 								<p class="ui-li-aside">3 / 8</p>
 								<div class="progress">
+									<div class="badge-box" style="margin-left: 50%">
+										<div class="arrow-up"></div>
+										<span class="badge" style="padding: 4px; width: 2em; text-align: center;">55</span>
+									</div>
+									<div class="badge-box" style="margin-left: 75%">
+										<div class="arrow-up arrow-up-success"></div>
+										<span class="badge badge-success" style="padding: 4px; width: 2em; text-align: center;">80</span>
+									</div>									
 									<div style="min-width: 2.5em; width: 25%" role="progressbar" class="progress-bar progress-bar-default">
 										25%
 									</div>
@@ -101,25 +172,30 @@
 								</div>
 							</a>
 						</li>
-						<li class="ui-field-contain">
+						<li class="ui-field-contain addForm" style="display:none">
 							<label for="addClassCode">Class Code:</label>
 							<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="PYSCH 101" data-clear-btn="true" />
 						</li>
-						<li class="ui-field-contain">
+						<li class="ui-field-contain addForm" style="display:none">
 							<label for="addClassDesc">Description:</label>
 							<textarea data-mini="true" type="text" name="addClassDesc" id="addClassDesc" value="" placeholder="Intro to psychology" data-clear-btn="true"></textarea>
 						</li>
-						<li class="ui-field-contain">
+						<li class="ui-field-contain addForm" style="display:none">
 							<label for="addClassGoal">Target Grade:</label>
 							<input type="range" name="addClassGoal" id="addClassGoal" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
+						</li>
+						<li class="addForm" style="display:none">
+							<fieldset class="ui-grid-b">
+								<div class="ui-block-a"></div>
+								<div class="ui-block-b"></div>
+								<div class="ui-block-c"><button type="submit" class="ui-btn ui-corner-all ui-btn-a ui-mini ui-btn-active">Add</button></div>
+				            </fieldset>
+						</li>
 						<li>
-							<a class="ui-btn ui-icon-plus ui-btn-icon-left" href="#addPage">Add Class</a>
+							<a id="addToggle" class="ui-btn ui-icon-plus ui-btn-icon-left" onclick="toggleAddForm();">Add Class</a>
 						</li>
 					</ul>
 			</section>
-			<footer data-role="footer" data-position="fixed" data-tap-toggle="false">
-				<h4>&copy 2015</h4>
-			</footer>
 		</div><!-- end page -->
 
 <!-- ADD CLASS PAGE -->
@@ -139,5 +215,23 @@
 <!-- SCRIPTS -->
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+			function toggleAddForm() {
+				$(".addForm").toggle("fast");
+				var str = $("#addToggle").text();
+				if(str == "Add Class")
+				{
+					$("#addToggle").text("Cancel")
+								   .removeClass("ui-icon-plus")
+								   .addClass("ui-icon-minus");
+				}
+				else
+				{
+					$("#addToggle").text("Add Class")
+								   .removeClass("ui-icon-minus")
+								   .addClass("ui-icon-plus");
+				}
+			}
+		</script>
 	</body>
 </html>
