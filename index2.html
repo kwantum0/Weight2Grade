@@ -96,6 +96,16 @@
 				font-size: 0.6em;
 				font-weight: normal;
 			}
+			.circle ~ strong {
+				display: inline-block;
+				line-height: 27px;
+				margin-left: -20px;
+				margin-top: 4px;
+			}
+			.circle ~ strong span {
+				font-size: 125%;
+				vertical-align: middle;
+			}
 		</style>
 	</head>
 	<body>
@@ -274,7 +284,7 @@
 					<li data-icon="false">
 						<a class="ui-link-inherit not-active">
 							<h2>BIO 2040</h2>
-							<p> Introduction to gerontology. </p>
+							<p> Introduction to animal anatomy. </p>
 							<p class="ui-li-aside">3 / 6</p>
 							<div class="progress">
 								<div class="badge-box" style="padding-left: 0px">
@@ -305,29 +315,80 @@
 						<ul data-role="listview">
 							<li>
 								<a href="#classView" class="ui-link-inherit">
-									<div class="circle" data-value="0.87" style="float:left; margin-right:10px"><strong></strong></div>
+									<div class="circle" data-value="0.87" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
 									<h2>Lab 1</h2>
 									<p>Report for cow eyeball dissection.</p>
 									<p class="ui-li-aside">March 3rd, 2015</p>
-									
+									<strong><span>&#215;</span>0.30</strong>
 								</a>
 							</li>
 							<li>
+								<a href="#classView" class="ui-link-inherit">
+									<div class="circle" data-value="0.30" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
+									<h2>Lab 2</h2>
+									<p>Report for squid dissection and diagram.</p>
+									<p class="ui-li-aside">March 7th, 2015</p>
+									<strong><span>&#215;</span>0.30</strong>
+								</a>
 							</li>
 						</ul>
 					</div>
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
 						<h2>Completed Tasks</h2>
 						<ul data-role="listview">
-							<li></li>
+							<li>
+								<a href="#classView" class="ui-link-inherit">
+									<div class="circle" data-value="0" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
+									<h2>Quiz 1</h2>
+									<p>Major branches of life, and animal taxonomy.</p>
+									<p class="ui-li-aside">March 20th, 2015</p>
+									<strong><span>&#215;</span>0.10</strong>
+								</a>
+							</li>
 						</ul>
 					</div>
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="false" style="border-radius:0px">
 						<h2>Outstanding Tasks</h2>
 						<ul data-role="listview">
-							<li></li>
-							<li></li>
-							<li></li>
+							<li>
+								<a href="#classView" class="ui-link-inherit">
+									<div class="circle" data-value="0" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
+									<h2>Quiz 2</h2>
+									<p>Anatomy of vertebrates.</p>
+									<p class="ui-li-aside">April 1st, 2015</p>
+									<strong><span>&#215;</span>0.10</strong>
+								</a>
+							</li>
+							<li>
+								<a href="#classView" class="ui-link-inherit">
+									<div class="circle" data-value="0" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
+									<h2>Quiz 3</h2>
+									<p>Cellular biology and mammal physiology.</p>
+									<p class="ui-li-aside">April 15th, 2015</p>
+									<strong><span>&#215;</span>0.10</strong>
+								</a>
+							</li>
+							<li>
+								<a href="#classView" class="ui-link-inherit">
+									<div class="circle" data-value="0" style="float:left; margin-right:10px">
+										<strong></strong>
+									</div>
+									<h2>Quiz 4</h2>
+									<p>Evolutionary reasons for adaptations.</p>
+									<p class="ui-li-aside">April 29th, 2015</p>
+									<strong><span>&#215;</span>0.30</strong>
+								</a>
+							</li>
 						</ul>
 					</div>
 					<ul data-role="listview" data-inset="true" style="margin-top:-1px">
@@ -371,9 +432,9 @@
 					<label for="editClassPass">Pass Grade:</label>
 					<input type="range" name="editClassPass" id="editClassPass" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
 					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding-top:20px">
-						<button type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active">Save</button>
-						<button type="button" class="ui-btn ui-corner-all ui-btn-b">Delete</button>
-						<button type="button" class="ui-btn ui-corner-all ui-btn-a">Cancel</button>
+						<button type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active" onclick="window.location='index2.html#classView'">Save</button>
+						<button type="button" class="ui-btn ui-corner-all ui-btn-b" onclick="window.location='index2.html#homeView'">Delete</button>
+						<button type="button" class="ui-btn ui-corner-all ui-btn-a" onclick="window.location='index2.html#classView'">Cancel</button>
 					</fieldset>
 				</form>
 			</div><!-- end popup -->
