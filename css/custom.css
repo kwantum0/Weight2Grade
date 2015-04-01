@@ -5,6 +5,9 @@
 		Daniel Franz	2015.04.01: created
 
 */
+li {
+	list-style: none;
+}
 .progress-bar, .badge { 
 	font-weight: 100; 
 	font-size: .75em; 

@@ -41,6 +41,8 @@ function dbCreateTables() {
 			+ "is_bonus BOOLEAN,"
 			+ "FOREIGN KEY(class_id) REFERENCES tblClass(class_id),"
 			+ "FOREIGN KEY(type_name) REFERENCES tblType(type_name))", null, success, fail);
+		// required for FORIEGN KEYs to work
+		tx.executeSql("PRAGMA foreign_keys = ON;", null, success, fail); // Not Universally Supported    
 	});
 }
 function tblTypePopulate() {
@@ -152,12 +154,12 @@ function tblAssignmentList(callbackFunc) {
  *	  		DEBUG			*
  ****************************/
 //{ Logging Callback Functions
-function success(tx, result){
+function success(tx, result) {
 	console.log("SUCCESS: ");
 	console.log(result);
 	console.log("\n");
 }
-function fail(tx, result){
+function fail(tx, result) {
 	console.log("ERROR: ");
 	console.log(result);
 }//}
