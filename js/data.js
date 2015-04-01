@@ -7,10 +7,13 @@
 */
 
 /****************************
+ *	  GLOBAL DB VARIABLE	*
+ ****************************/
+ var db = openDatabase('weight2grade', '1.0', 'weight2grade db', 2*1024*1024);
+
+/****************************
  *		DATABASE SETUP		*
  ****************************/
-var db = openDatabase('weight2grade', '1.0', 'weight2grade db', 2*1024*1024);
-
 function dbCreateTables() {
 	db.transaction(function(tx) {
 		tx.executeSql("CREATE TABLE IF NOT EXISTS tblClass("
@@ -35,14 +38,17 @@ function dbCreateTables() {
 	});
 }
 
-function success(tx, result)
-{
+/****************************
+ *	  		DEBUG			*
+ ****************************/
+function success(tx, result){
+	console.log("SUCCESS: ");
 	console.log(result);
 }
 
-function fail(tx, result)
-{
-	console.log("ERROR: " + result.message);
+function fail(tx, result){
+	console.log("ERROR: ");
+	console.log(result);
 }
 
 //class functions

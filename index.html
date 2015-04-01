@@ -10,124 +10,27 @@
 -->
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<!-- Application Info -->
 		<meta name="author" content="Daniel Franz, Chris Mosey, Zachary Taylor" />
 		<meta name="description" content="Mobile Application Development 2015 - Final Project" />
 		
+		<!-- Copyright -->
+		<meta name="dcterms.rightsHolder" content="Conestoga College" />
+		<meta name="dcterms.rights" content="All rights reserved" />
+		<meta name="dcterms.dateCopyrighted" content="2015" />
+		
 		<!-- For Mobile App Display -->
+		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no" />
 		
 		<title>Weight2Grade</title>
 		
-		<!-- Style dependancies -->
-		<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<!-- Style dependencies -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-		<style type="text/css">
-			.progress-bar, .badge { 
-				font-weight: 100; 
-				font-size: .75em; 
-				text-shadow: 1px 1px 1px black;
-			}
-			.ui-slider-track.ui-mini { 
-				margin: 0 15px 0 68px; 
-			}
-			.progress-bar {
-				min-width: 1.5em;
-			}
-			.carat-up {
-				width: 0; 
-				height: 0; 
-				margin-bottom: -2px;
-				margin-left: auto;
-				margin-right: auto;
-				border-left: 5px solid transparent;
-				border-right: 5px solid transparent;
-				border-bottom: 8px solid #777777;
-			}
-			.carat-up-success {
-				border-bottom: 8px solid #5cb85c;
-			}
-			.badge {
-				padding: 4px; 
-				width: 2em; 
-				text-align: center;
-			}
-			.badge-box{
-				position: absolute; 
-				margin-top: 20px;
-			}
-			.hasBadges:first-child > li > a.ui-link-inherit {
-				padding-bottom: 20px;
-			}
-			.ui-li-aside {
-				padding-top: 7.2px;
-			}
-			.not-active {
-				pointer-events: none;
-				cursor: default;
-			}
-			.addToHead {
-				position:fixed; 
-				width:100%;
-				z-index: 10;
-			}
-			#addSpace1 {
-				margin-top: 140px;
-			}
-			#editView {
-				max-width:600px; 
-				padding-bottom:2em; 
-				margin-right:16px;
-			}
-			.ui-input-text.ui-mini {
-				margin-left:0px;
-				margin-right:0px;
-			}
-			div.ui-slider > div.ui-slider-track > div.ui-slider-bg {
-				background-color: #5cb85c;
-			}
-			#editClassPass + div > div.ui-slider-bg {
-				background-color: #777777;
-			}
-			.circle {
-				height: 80px;
-				float:left; 
-				margin-right:10px
-			}
-			.circle strong {
-				display: block;
-				position: relative;
-				width: 100%;
-				top: -90px;
-				line-height: 90px;
-				text-align: center;
-			}
-			.circle strong i {
-				font-style: normal;
-				font-size: 0.6em;
-				font-weight: normal;
-			}
-			.circle ~ strong {
-				display: inline-block;
-				line-height: 27px;
-				margin-left: -20px;
-				margin-top: 4px;
-			}
-			.circle ~ strong span {
-				font-size: 125%;
-				vertical-align: middle;
-			}
-			div.ui-block-b > div.ui-slider {
-				width: 100%;
-				margin-top: .5em;
-			}
-		</style>
-
-		<!--should move JQUERY files to another folder, and move the js and css in the index to actual files-->
-		<!--also javascript files-->
-		<script type="text/javascript" src="js/createDb.js"></script>
-		<script type="text/javascript" src="js/database.js"></script>
-
+		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		
+		<!-- Script dependencies at end of document -->
 	</head>
 	<body>
 
@@ -537,147 +440,27 @@
 				</ul>
 			</section>
 		</div>
+
 <!-- SCRIPTS -->
-		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-		<script src="js/circle-progress.js"></script>
+		<!-- Declare jQuery -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+				
+		<!-- MUST NOT MOVE (after jQuery, before jQuery Mobile) -->
 		<script>
 		$(document).on("mobileinit", function(){
 			$.mobile.defaultPageTransition = 'none';
 		});
 		</script>
+		
+		<!-- Declare jQueryMobile -->
 		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-		<script>
-			function toggleAddForm() {
-				$(".addForm").toggle("fast");
-				var str = $("#addToggle").text();
-				if(str == "Add Class")
-				{
-					$("#addToggle").text("Cancel")
-								   .removeClass("ui-icon-plus")
-								   .addClass("ui-icon-minus");
-				}
-				else
-				{
-					$("#addToggle").text("Add Class")
-								   .removeClass("ui-icon-minus")
-								   .addClass("ui-icon-plus");
-				}
-			}
-			function toggleTaskForm() {
-				$(".taskForm").toggle("fast");
-				var str = $("#taskToggle").text();
-				if(str == "Add Task")
-				{
-					$("#taskToggle").text("Cancel")
-								   .removeClass("ui-icon-plus")
-								   .addClass("ui-icon-minus");
-					$("#addSpace1 .ui-collapsible").collapsible("collapse");
-					
-				}
-				else
-				{
-					$("#taskToggle").text("Add Task")
-								   .removeClass("ui-icon-minus")
-								   .addClass("ui-icon-plus");
-				}
-			}
-			var doit;
-			window.onresize = function(){
-			  clearTimeout(doit);
-			  doit = setTimeout(repositionBadges, 500);
-			};
-			$(window).on("pageshow", repositionBadges);
-			$(window).on("pageshow", revealCircles);
-			$(document).on("collapsibleexpand", function() {
-				var str = $("#taskToggle").text();
-				if(str == "Cancel")
-				{
-					toggleTaskForm();
-				}
-				$(".circle").circleProgress("redraw");
-			});
-			function repositionBadges(event, ui) {
-				$(".badge-box").each(function(index){
-					var numb = $(this).text().trim() + "%";
-					$(this).animate({marginLeft: numb}, "faster");
-					$(this).animate({marginLeft: "-=36px"}, "faster");
-				});
-			}
-			function resetBadges(event, ui) {
-				$(".badge-box").each(function(index){
-					$(this).css(marginLeft, "0px");
-				});
-			}
-			function revealCircles() {
-				$.each($(".circle"), function(key, value){
-					var percent = parseFloat($(value).attr('data-value'));
-					$(value).circleProgress({
-						value: percent,
-						size: 80,
-						reverse: true,
-						thickness: 12,
-						startAngle: 0,
-						fill: {color: "#337ab7"},
-						animation: { duration: 600 }
-					}).on('circle-animation-progress', function(event, progress){
-						$(value).find('strong').html(parseInt(100 * percent * progress) + '<i>%</i>');
-					});
-				});
-			}
-			$("#outstandingAssList > li > a").hover(function() {
-				// on enter
-				pumpCircle($(this).find(".circle"));
-			}, function(){
-				// on leave
-				deflateCircle($(this).find(".circle"));
-			});
-			$("#completedAssList > li > a").hover(function() {
-				// on enter
-				pumpCircle($(this).find(".circle"));
-			}, function(){
-				// on leave
-				deflateCircle($(this).find(".circle"));
-			});
-			function pumpCircle(circle){
-				$("#hoverGrade").show();
-				var weight = parseInt($(circle).attr('data-weight'));
-				var total = parseInt($("#bar").attr('data-total-weight'));
-				var percent = weight / total * 100;
-				$("#hoverGrade").width(percent.toString() + "%");
-				$(circle).circleProgress({
-					value: 1,
-					size: 80,
-					reverse: true,
-					thickness: 12,
-					startAngle: 0,
-					fill: {color: "#FFAA3B"},
-					animation: { duration: 300 }
-				}).on('circle-animation-progress', function(event, progress){
-					var width = parseInt(weight * progress);
-					$("#hoverGrade").text(width);
-				});
-			}
-			function deflateCircle(circle){
-				$("#hoverGrade").hide();
-				$("#hoverGrade").text("");
-				$("#hoverGrade").width(0);
-				$(circle).circleProgress({
-					value: 0,
-				})
-			}
-			/*$("#markedAssList > li > a").hover(function() {
-				// on enter
-				$("#hoverGrade2").show();
-				var weight = parseInt($(this).find(".circle").attr('data-weight'));
-				var total = parseInt($("#bar").attr('data-total-weight'));
-				var percent = weight / total * 100;
-				$("#hoverGrade").width(percent.toString() + "%");
-			}, function() {
-				// on leave
-				$("#hoverGrade2").hide();
-				$("#hoverGrade2").text("");
-				$("#hoverGrade2").width(0);
-			});*/
-		</script>
+		
+		<!-- Declare Circle Progress -->
+		<script type="text/javascript" src="js/circle-progress.js"></script>
+		
+		<!-- Declare Custom Scripts -->
+		<script type="text/javascript" src="js/data.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
 	</body>
 </html>

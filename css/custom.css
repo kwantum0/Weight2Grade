@@ -1,0 +1,105 @@
+/* 	custom.css
+	contains custom styles in order to make the views display properly
+	
+	Revision History:
+		Daniel Franz	2015.04.01: created
+
+*/
+.progress-bar, .badge { 
+	font-weight: 100; 
+	font-size: .75em; 
+	text-shadow: 1px 1px 1px black;
+}
+.ui-slider-track.ui-mini { 
+	margin: 0 15px 0 68px; 
+}
+.progress-bar {
+	min-width: 1.5em;
+}
+.carat-up {
+	width: 0; 
+	height: 0; 
+	margin-bottom: -2px;
+	margin-left: auto;
+	margin-right: auto;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 8px solid #777777;
+}
+.carat-up-success {
+	border-bottom: 8px solid #5cb85c;
+}
+.badge {
+	padding: 4px; 
+	width: 2em; 
+	text-align: center;
+}
+.badge-box{
+	position: absolute; 
+	margin-top: 20px;
+}
+.hasBadges:first-child > li > a.ui-link-inherit {
+	padding-bottom: 20px;
+}
+.ui-li-aside {
+	padding-top: 7.2px;
+}
+.not-active {
+	pointer-events: none;
+	cursor: default;
+}
+.addToHead {
+	position:fixed; 
+	width:100%;
+	z-index: 10;
+}
+#addSpace1 {
+	margin-top: 140px;
+}
+#editView {
+	max-width:600px; 
+	padding-bottom:2em; 
+	margin-right:16px;
+}
+.ui-input-text.ui-mini {
+	margin-left:0px;
+	margin-right:0px;
+}
+div.ui-slider > div.ui-slider-track > div.ui-slider-bg {
+	background-color: #5cb85c;
+}
+#editClassPass + div > div.ui-slider-bg {
+	background-color: #777777;
+}
+.circle {
+	height: 80px;
+	float:left; 
+	margin-right:10px
+}
+.circle strong {
+	display: block;
+	position: relative;
+	width: 100%;
+	top: -90px;
+	line-height: 90px;
+	text-align: center;
+}
+.circle strong i {
+	font-style: normal;
+	font-size: 0.6em;
+	font-weight: normal;
+}
+.circle ~ strong {
+	display: inline-block;
+	line-height: 27px;
+	margin-left: -20px;
+	margin-top: 4px;
+}
+.circle ~ strong span {
+	font-size: 125%;
+	vertical-align: middle;
+}
+div.ui-block-b > div.ui-slider {
+	width: 100%;
+	margin-top: .5em;
+}
