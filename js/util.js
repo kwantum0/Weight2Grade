@@ -107,3 +107,8 @@ function deflateCircle(circle){
 		value: 0,
 	})
 }//}
+
+//{ Capitalizes only first letter of a string for TYPE NAME
+function typeFormat(str){
+	return str.substring(0,1).toUpperCase() + str.substring(1,str.length).toLowerCase();
+}//}

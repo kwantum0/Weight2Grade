@@ -63,11 +63,13 @@ function dbDropTables() {
  ****************************/
 //{ Type Table
 function tblTypeInsert(strName) {
+	strName = typeFormat(strName);
 	db.transaction(function(tx) {
 		tx.executeSql("INSERT INTO tblType (type_name) VALUES ('" + strName + "');", null, success, fail);
 	});
 }
 function tblTypeDelete(strName) {
+	strName = typeFormat(strName);
 	if(strName != "Other"){
 		db.transaction(function(tx) {
 			tx.executeSql("UPDATE tblAssignment SET type_name = 'Other'"
