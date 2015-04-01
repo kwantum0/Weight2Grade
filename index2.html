@@ -47,7 +47,7 @@
 				position: absolute; 
 				margin-top: 20px;
 			}
-			.hasBadges > li > a.ui-link-inherit {
+			.hasBadges:first-child > li > a.ui-link-inherit {
 				padding-bottom: 20px;
 			}
 			.ui-li-aside {
@@ -108,6 +108,10 @@
 				font-size: 125%;
 				vertical-align: middle;
 			}
+			div.ui-block-b > div.ui-slider {
+				width: 100%;
+				margin-top: .5em;
+			}
 		</style>
 	</head>
 	<body>
@@ -117,13 +121,13 @@
         	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
            		<h1>Weight2Grade</h1>
 				<a href="#" data-icon="back" class="ui-btn-left ui-state-disabled" style="padding-bottom: 5px">Back</a>
-				<nav data-role="navbar">
+				<!--<nav data-role="navbar">
 					<ul>
 						<li><a href="#homeView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
 						<li><a href="#list" data-icon="star">Priority View</a></li>
 						<li><a href="#options" data-icon="gear">Options</a></li>
 					</ul>
-				</nav>
+				</nav>-->
             </header>
 			<section data-role="content">
 				<ul data-role="listview" class="hasBadges" data-inset="true">
@@ -273,13 +277,13 @@
         	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
            		<h1>Weight2Grade</h1>
 				<a href="#homeView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
-				<nav data-role="navbar">
+				<!--<nav data-role="navbar">
 					<ul>
 						<li><a href="#classView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
 						<li><a href="#list" data-icon="star">Priority View</a></li>
 						<li><a href="#options" data-icon="gear">Options</a></li>
 					</ul>
-				</nav>
+				</nav>-->
             </header>
 			<section data-role="content" style="margin:-1px">
 				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
@@ -297,13 +301,13 @@
 									<div class="carat-up carat-up-success"></div>
 									<span class="badge badge-success" >75</span>
 								</div>
-								<div style="width: 35%; z-index: 5" role="progressbar" class="progress-bar progress-bar-default">
+								<div id="grade" style="width: 35%; z-index: 5" role="progressbar" class="progress-bar progress-bar-default">
 									35
 								</div>
-								<div id="hoverGrade" style="width: 0%; display: none; z-index: 5" role="progressbar" class="progress-bar progress-bar-warning">
+								<div id="hoverGrade" style="width: 0%; display: none" role="progressbar" class="progress-bar progress-bar-warning">
 									0
 								</div>
-								<div style="float: right; width: 25%" role="progressbar" class="progress-bar progress-bar-danger ">
+								<div id="fail" style="float: right; width: 25%" role="progressbar" class="progress-bar progress-bar-danger ">
 									25
 								</div>
 							</div>
@@ -316,7 +320,7 @@
 						<h2>Marked Tasks</h2>
 						<ul data-role="listview" id="markedAssList">
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0.87" data-weight="30">
 										<strong></strong>
 									</div>
@@ -327,7 +331,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0.30" data-weight="30">
 										<strong></strong>
 									</div>
@@ -343,7 +347,7 @@
 						<h2>Completed Tasks</h2>
 						<ul data-role="listview" id="completedAssList">
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0" data-weight="10">
 										<strong></strong>
 									</div>
@@ -359,7 +363,7 @@
 						<h2>Outstanding Tasks</h2>
 						<ul data-role="listview" id="outstandingAssList">
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0" data-weight="10">
 										<strong></strong>
 									</div>
@@ -370,7 +374,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0" data-weight="10">
 										<strong></strong>
 									</div>
@@ -381,7 +385,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#classView" class="ui-link-inherit">
+								<a href="#assView" class="ui-link-inherit">
 									<div class="circle" data-value="0" data-weight="10">
 										<strong></strong>
 									</div>
@@ -394,30 +398,39 @@
 						</ul>
 					</div>
 					<ul data-role="listview" data-inset="true" style="margin-top:-1px">
-						<li class="ui-field-contain taskForm" style="display:none">
-							<label for="addClassDesc">Type:</label>
-							<select data-mini="true" name="addClassDesc" id="addClassDesc">
-								<option value="Assignment">Assignment</option>
-								<option value="Assignment">Exam</option>
-								<option value="Assignment">Lab</option>
-								<option value="Assignment">Quiz</option>
-								<option value="Assignment">Paper</option>
-								<option value="Assignment">Project</option>
-								<option value="Assignment">Worksheet</option>
-							</select>
-						</li>
 						<li class="ui-field-contain taskForm" style="display:none;border-radius:0px">
-							<label for="addClassCode">Name:</label>
-							<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="" data-clear-btn="true" />
+							<fieldset class="ui-grid-a">
+								<div class="ui-block-a">
+									<select data-mini="true" name="addAssType" id="addAssType">
+										<option value="Assignment">Assignment</option>
+										<option value="Assignment">Exam</option>
+										<option value="Assignment">Lab</option>
+										<option value="Assignment">Quiz</option>
+										<option value="Assignment">Paper</option>
+										<option value="Assignment">Project</option>
+										<option value="Assignment">Worksheet</option>
+									</select>
+								</div>
+								<div class="ui-block-b" style="padding-left:14px">
+									<select name="addAssBonus" id="addAssBonus" data-role="slider">
+										<option value="off">Required</option>
+										<option value="on">Bonus</option>
+									</select>
+								</div>
+							</fieldset>
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
-							<label for="addClassDesc">Description:</label>
-							<textarea data-mini="true" type="text" name="addClassDesc" id="addClassDesc" value="" placeholder="Intro to psychology" data-clear-btn="true"></textarea>
+							<label for="addAssName">Name:</label>
+							<input data-mini="true" type="text" name="addAssName" id="addAssName" value="" placeholder="Final Presentation" data-clear-btn="true" />
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
-							<label for="addClassGoal">Target Grade:</label>
-							<input type="range" name="addClassGoal" id="addClassGoal" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
+							<label for="addAssDesc">Description:</label>
+							<textarea data-mini="true" type="text" name="addAssDesc" id="addAssDesc" value="" placeholder="Link between sport concussions and poor academic performance." data-clear-btn="true"></textarea>
 						</li>
+						<li class="ui-field-contain taskForm" style="display:none">
+							<label for="addAssDate">Due Date:</label>
+							<input data-mini="true" type="date" name="addAssDate" id="addAssDate" value="" />
+						</li >
 						<li class="taskForm" style="display:none">
 							<fieldset class="ui-grid-b">
 								<div class="ui-block-a"></div>
@@ -454,6 +467,61 @@
 			</div><!-- end popup -->
 		</div><!-- end page -->
 
+<!-- ASSIGNEMNT VIEW -->
+		<div data-role="page" id="assView">
+			<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
+				<h1>Weight2Grade</h1>
+				<a href="#classView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
+				<!--<nav data-role="navbar">
+					<ul>
+						<li><a href="#assView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
+						<li><a href="#list" data-icon="star">Priority View</a></li>
+						<li><a href="#options" data-icon="gear">Options</a></li>
+					</ul>
+				</nav>-->
+			</header>
+			<section data-role="content" style="margin:-1px">
+				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
+					<li data-icon="false">
+						<a class="ui-link-inherit not-active">
+							<h2>BIO 2040</h2>
+							<p> Introduction to animal anatomy. </p>
+							<p class="ui-li-aside">3 / 6</p>
+							<div class="progress" data-total-weight="100" id="bar">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge">55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >75</span>
+								</div>
+								<div style="width: 35%" role="progressbar" class="progress-bar progress-bar-default">
+									35
+								</div>
+								<div id="hoverGrade" style="width: 10%" role="progressbar" class="progress-bar progress-bar-warning">
+									10
+								</div>
+								<div id="fail" style="float: right; width: 25%" role="progressbar" class="progress-bar progress-bar-danger ">
+									25
+								</div>
+							</div>
+						</a>
+					</li>
+					<li data-icon="false">
+						<a class="ui-link-inherit not-active">
+							<div class="circle" data-value="0" data-weight="10">
+								<strong></strong>
+							</div>
+							<h2>Quiz 2</h2>
+							<p>Anatomy of vertebrates.</p>
+							<p class="ui-li-aside">April 1st, 2015</p>
+						</a>
+						<a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a>
+					</li>
+				</ul>
+			</section>
+		</div>
 <!-- SCRIPTS -->
 		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script src="js/circle-progress.js"></script>
@@ -582,6 +650,19 @@
 					value: 0,
 				})
 			}
+			/*$("#markedAssList > li > a").hover(function() {
+				// on enter
+				$("#hoverGrade2").show();
+				var weight = parseInt($(this).find(".circle").attr('data-weight'));
+				var total = parseInt($("#bar").attr('data-total-weight'));
+				var percent = weight / total * 100;
+				$("#hoverGrade").width(percent.toString() + "%");
+			}, function() {
+				// on leave
+				$("#hoverGrade2").hide();
+				$("#hoverGrade2").text("");
+				$("#hoverGrade2").width(0);
+			});*/
 		</script>
 	</body>
 </html>
