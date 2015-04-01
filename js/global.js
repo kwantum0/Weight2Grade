@@ -9,13 +9,42 @@
  ****************************/
 $(document).ready(function() {
 	
+// DATABASE
+	
+	// check if setup is complete
+	var setup_complete = localStorage.getItem("setup");
+	if(setup_complete == null || setup_complete != "COMPLETE")
+	{
+		// drop all data, it might be corrupt
+		dbDropTables();
+		
+		// create the tables
+		dbCreateTables();
+		
+		// populate the type table
+		tblTypePopulate();
+		
+		// set setup as COMPLETE
+		localStorage.setItem("setup", "COMPLETE");
+	}
 	
 });
 
 /****************************
  *	 	 EVENT BINDING		*
  ****************************/
- 
+
+// Clear Data Event
+$("#resetData").on( "click", function() {
+	var result = confirm("You are about to reset all your Weight2Grade data." 
+						 + "There is no way to undo this change.\n\nContinue?");
+	if(result){
+		// set setup as RESET
+		localStorage.setItem("setup", "RESET");
+		parent.window.location.href = "index.html";
+	}
+});
+
 // Window Resize Event
 var doit;
 window.onresize = function(){
