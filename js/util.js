@@ -5,7 +5,7 @@
 		Daniel Franz	 2015.04.01: created
 */
 
-// Toggles the Add Class Form Open & Closed
+//{ Toggles the Add Class Form Open & Closed
 function toggleAddForm() {
 	$(".addForm").toggle("fast");
 	var str = $("#addToggle").text();
@@ -21,9 +21,9 @@ function toggleAddForm() {
 					   .removeClass("ui-icon-minus")
 					   .addClass("ui-icon-plus");
 	}
-}
+}//}
 
-// Toggles the Add Task Form Open & Closed
+//{ Toggles the Add Task Form Open & Closed
 function toggleTaskForm() {
 	$(".taskForm").toggle("fast");
 	var str = $("#taskToggle").text();
@@ -41,25 +41,25 @@ function toggleTaskForm() {
 					   .removeClass("ui-icon-minus")
 					   .addClass("ui-icon-plus");
 	}
-}
+}//}
 
-// Moves the badges to their proper location 
+//{ Moves the badges to their proper location 
 function repositionBadges(event, ui) {
 	$(".badge-box").each(function(index){
 		var numb = $(this).text().trim() + "%";
 		$(this).animate({marginLeft: numb}, "faster");
 		$(this).animate({marginLeft: "-=36px"}, "faster");
 	});
-}
+}//}
 
-// Moves the badges to the origin
+//{ Moves the badges to the origin
 function resetBadges(event, ui) {
 	$(".badge-box").each(function(index){
 		$(this).css(marginLeft, "0px");
 	});
-}
+}//}
 
-// Animates the circular progress bars
+//{ Animates the circular progress bars
 function revealCircles() {
 	$.each($(".circle"), function(key, value){
 		var percent = parseFloat($(value).attr('data-value'));
@@ -75,9 +75,9 @@ function revealCircles() {
 			$(value).find('strong').html(parseInt(100 * percent * progress) + '<i>%</i>');
 		});
 	});
-}
+}//}
 
-// Animates both the circular progress bar and the class bar
+//{ Animates both the circular progress bar and the class bar
 function pumpCircle(circle){
 	$("#hoverGrade").show();
 	var weight = parseInt($(circle).attr('data-weight'));
@@ -96,9 +96,9 @@ function pumpCircle(circle){
 		var width = parseInt(weight * progress);
 		$("#hoverGrade").text(width);
 	});
-}
+}//}
 
-// Resets both the circular progress bar and the class bar
+//{ Resets both the circular progress bar and the class bar
 function deflateCircle(circle){
 	$("#hoverGrade").hide();
 	$("#hoverGrade").text("");
@@ -106,4 +106,4 @@ function deflateCircle(circle){
 	$(circle).circleProgress({
 		value: 0,
 	})
-}
+}//}

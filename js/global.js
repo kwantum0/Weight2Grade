@@ -4,13 +4,12 @@
 	Revision history
 		Daniel Franz	 2015.04.01: created
 */
+
 /****************************
  *		DOCUMENT READY		*
  ****************************/
-$(document).ready(function() {
-	
-// DATABASE
-	
+$(document).ready(function() {	
+	//{ DATABASE
 	// check if setup is complete
 	var setup_complete = localStorage.getItem("setup");
 	if(setup_complete == null || setup_complete != "COMPLETE")
@@ -24,17 +23,24 @@ $(document).ready(function() {
 		// populate the type table
 		tblTypePopulate();
 		
+		// reset default pass grade to 55
+		localStorage.setItem("defaultPassGrade", "55");
+		
+		// reset IDs
+		localStorage.setItem("classID", "");
+		localStorage.setItem("assignmentID", "");
+		
 		// set setup as COMPLETE
 		localStorage.setItem("setup", "COMPLETE");
 	}
-	
+	//}
 });
 
 /****************************
  *	 	 EVENT BINDING		*
  ****************************/
 
-// Clear Data Event
+//{ Clear Data Event
 $("#resetData").on( "click", function() {
 	var result = confirm("You are about to reset all your Weight2Grade data." 
 						 + "There is no way to undo this change.\n\nContinue?");
@@ -44,19 +50,22 @@ $("#resetData").on( "click", function() {
 		parent.window.location.href = "index.html";
 	}
 });
+//}
 
-// Window Resize Event
+//{ Window Resize Event
 var doit;
 window.onresize = function(){
   clearTimeout(doit);
   doit = setTimeout(repositionBadges, 500);
 };
+//}
 
-// Page Show Events
+//{ Page Show Events
 $(window).on("pageshow", repositionBadges);
 $(window).on("pageshow", revealCircles);
+//}
 
-// Assignment List Expand Event
+//{ Assignment List Expand Event
 $(document).on("collapsibleexpand", function() {
 	var str = $("#taskToggle").text();
 	if(str == "Cancel"){
@@ -64,8 +73,9 @@ $(document).on("collapsibleexpand", function() {
 	}
 	$(".circle").circleProgress("redraw");
 });
+//}
 
-// Assignment Item Hover Events
+//{ Assignment Item Hover Events
 $("#outstandingAssList > li > a").hover(function() {
 	pumpCircle($(this).find(".circle"));
 }, function(){
@@ -76,7 +86,9 @@ $("#completedAssList > li > a").hover(function() {
 }, function(){
 	deflateCircle($(this).find(".circle"));
 });
+//}
 
+//{ Garbage?
 /*$("#markedAssList > li > a").hover(function() {
 	// on enter
 	$("#hoverGrade2").show();
@@ -90,3 +102,4 @@ $("#completedAssList > li > a").hover(function() {
 	$("#hoverGrade2").text("");
 	$("#hoverGrade2").width(0);
 });*/
+//}
