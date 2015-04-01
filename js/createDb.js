@@ -9,31 +9,26 @@
 var db = openDatabase('weight2grade', '1.0', 'weight2grade db', 2*1024*1024);
 
 db.transaction(function(tx) {
-	tx.executeSql("CREATE TABLE IF NO EXISTS tblClass("
+	tx.executeSql("CREATE TABLE IF NOT EXISTS tblClass("
 		+ "class_id INTEGER PRIMARY KEY,"
-		+ "class_name VARCHAR(30),"
-		+ "course_code VARCHAR(10),"
-		+ "target_grade INTEGER(100)"
-		+ "credits INTEGER(12))", null, success, fail);
+		+ "class_code VARCHAR(30),"
+		+ "class_description VARCHAR(250),"
+		+ "pass_grade INTEGER,"
+		+ "target_grade INTEGER)", null, success, fail);
 
-	tx.executeSql("CREATE TABLE IF NOT EXISTS tblTasks(")
-		+ "task_id INTEGER PRIMARY KEY,"
-		+ "class_id INTEGER(10),"
-		+ "task_type"
-		+ "task_name VARCHAR(30),"
-		+ "task_description VARCHAR(200),"
-
-	tx.executeSql("CREATE TABLE IF NOT EXISTS tblAssignments(")
+	tx.executeSql("CREATE TABLE IF NOT EXISTS tblType("
+		+ "type_id INTEGER PRIMARY KEY,"
+		+ "type_name VARCHAR(15))", null, success, fail);
+	tx.executeSql("CREATE TABLE IF NOT EXISTS tblAssignments("
 		+ "assignment_id INTEGER PRIMARY KEY,"
-		+ "class_id INTEGER(10),"
-		+ "assignment_type"
+		+ "class_id INTEGER,"
+		+ "type_id INTEGER,"
 		+ "assignment_name VARCHAR(30),"
-		+ "assignment_description VARCHAR(200),"
-		+ "target_grade INTEGER(100),"
-		+ "weight INTEGER(3),"
-		+ "weight_achieved INTEGER(3),"
+		+ "assignment_description VARCHAR(250),"
+		+ "weight INTEGER,"
+		+ "weight_achieved INTEGER,"
 		+ "is_bonus BOOLEAN,"
-		+ "FOREIGN KEY(class_id) REFERENCES tblClass(class_id)", null, success, fail);
+		+ "FOREIGN KEY(class_id) REFERENCES tblClass(class_id))", null, success, fail);
 });
 
 function success(tx, result)
