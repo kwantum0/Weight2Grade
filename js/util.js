@@ -112,3 +112,14 @@ function deflateCircle(circle){
 function typeFormat(str){
 	return str.substring(0,1).toUpperCase() + str.substring(1,str.length).toLowerCase();
 }//}
+
+//{ Escapes special characters 
+function sanitize(str, code){
+	// required sanitation
+	var regex;
+	switch(code){
+		default:
+	}
+	
+	return str;
+}//}

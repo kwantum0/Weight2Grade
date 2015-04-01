@@ -65,7 +65,7 @@ function dbDropTables() {
 function tblTypeInsert(strName) {
 	strName = typeFormat(strName);
 	db.transaction(function(tx) {
-		tx.executeSql("INSERT INTO tblType (type_name) VALUES ('" + strName + "');", null, success, fail);
+		tx.executeSql("INSERT INTO tblType (type_name) VALUES (?);", [strName], success, fail);
 	});
 }
 function tblTypeDelete(strName) {
@@ -73,8 +73,8 @@ function tblTypeDelete(strName) {
 	if(strName != "Other"){
 		db.transaction(function(tx) {
 			tx.executeSql("UPDATE tblAssignment SET type_name = 'Other'"
-						  + " WHERE type_name = '" + strName + "';", null, success, fail);
-			tx.executeSql("DELETE FROM tblType WHERE type_name = '" + strName + "';", null, success, fail);
+						  + " WHERE type_name = ?;", [strName], success, fail);
+			tx.executeSql("DELETE FROM tblType WHERE type_name = ?;", [strName], success, fail);
 		});
 	}
 }
@@ -105,8 +105,8 @@ function tblClassUpdate(code, desc, pass, target, onSuccess, onFail) {
 function tblClassDelete(onSuccess, onFail) {
 	var id = localStorage.getItem("classID");
 	db.transaction(function(tx) {
-		tx.executeSql("DELETE FROM tblAssignment WHERE class_id = " + id + ";", null, success, fail);
-		tx.executeSql("DELETE FROM tblClass WHERE class_id = " + id + ";", null, onSuccess, onFail);
+		tx.executeSql("DELETE FROM tblAssignment WHERE class_id = ?;", [id], success, fail);
+		tx.executeSql("DELETE FROM tblClass WHERE class_id = ?;", [id], onSuccess, onFail);
 	});
 }
 function tblClassList(callbackFunc) {
@@ -120,7 +120,7 @@ function tblAssignmentInsert(type, name, desc, due, weight, bonus, onSuccess, on
 	var classId = localStorage.getItem("classID");
 	var sql = "INSERT INTO tblAssignment"
 			+ " (class_id, type_name, ass_name, ass_description, date_due, weight_total, is_bonus)" 
-			+ " VALUES (?, ?, ?, ?);";
+			+ " VALUES (?, ?, ?, ?, ?, ?, ?);";
 	db.transaction(function(tx) {
 		tx.executeSql(sql, [classId, type, name, desc, due, weight, bonus], onSuccess, onFail);
 	});
@@ -138,13 +138,13 @@ function tblAssignmentUpdate(type, name, desc, due, submit, weight, achieved, bo
 function tblAssignmentDelete(onSuccess, onFail) {
 	var id = localStorage.getItem("assignmentID");
 	db.transaction(function(tx) {
-		tx.executeSql("DELETE FROM tblAssignment WHERE ass_id = " + id + ";", null, onSuccess, onFail);
+		tx.executeSql("DELETE FROM tblAssignment WHERE ass_id = ?;", [id], onSuccess, onFail);
 	});
 }
 function tblAssignmentList(callbackFunc) {
 	var classId = localStorage.getItem("classID");
 	db.transaction(function(tx) {
-		tx.executeSql("SELECT * FROM tblAssignment WHERE class_id = " + classId + ";", null, callbackFunc, fail);
+		tx.executeSql("SELECT * FROM tblAssignment WHERE class_id = ?;", [classId], callbackFunc, fail);
 	});
 }//}
 
@@ -157,7 +157,6 @@ function success(tx, result){
 	console.log(result);
 	console.log("\n");
 }
-
 function fail(tx, result){
 	console.log("ERROR: ");
 	console.log(result);
