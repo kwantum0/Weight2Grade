@@ -37,7 +37,7 @@ $(document).ready(function() {
 });
 
 /****************************
- *	 	 EVENT BINDING		*
+ *	 	EVENT BINDINGS		*
  ****************************/
 
 //{ Clear Data Event
