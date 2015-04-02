@@ -37,6 +37,31 @@ $(document).ready(function() {
 });
 
 /****************************
+ *	  ACTION CONTROLLERS	*
+ ****************************/
+// Cause data methods, and perform callbacks
+$(window).hashchange(function() {
+	var page = location.hash;
+	switch(page)
+	{
+		//{ Class List View
+		case "#homeView":
+			alert("Home");
+			break;
+		//}
+		case "#classView":
+			alert("Class");
+			break;
+		case "#assView":
+			alert("Assignment");
+			break;
+		default:
+			break;
+	}
+});
+
+ 
+/****************************
  *	 	EVENT BINDINGS		*
  ****************************/
 
@@ -103,3 +128,4 @@ $("#completedAssList > li > a").hover(function() {
 	$("#hoverGrade2").width(0);
 });*/
 //}
+

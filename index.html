@@ -33,7 +33,16 @@
 		<!-- Script dependencies at end of document -->
 	</head>
 	<body>
-
+<!-- SPLASH VIEW -->
+		<div data-role="page" id="splash">
+			<section data-role="content">
+				<h1 style="text-align: center;"> Thank you for using </h1>
+				<h1 style="text-align: center; font-size: 400%; margin:0px"> Weight2Grade </h1>
+			</section>
+			<script>
+				setTimeout(function(){$.mobile.changePage("#homeView", "fade");},3000);
+			</script>
+		</div>
 <!-- HOME VIEW -->
 		<div data-role="page" id="homeView">
         	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
