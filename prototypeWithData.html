@@ -30,77 +30,172 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/custom.css" />
 		
-		<!-- Script dependencies -->
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<!-- MUST NOT MOVE (after jQuery, before jQuery Mobile) -->
-		<script>
-		$(document).on("mobileinit", function(){
-			$.mobile.defaultPageTransition = 'none';
-		});
-		</script>
-		<script src="js/jquery.mobile.js"></script>
-		<script type="text/javascript" src="js/validate.min.js"></script>
-		<script type="text/javascript" src="js/circle-progress.js"></script>
-		<!-- Custom Scripts -->
-		<script type="text/javascript" src="js/data.js"></script>
-		<script type="text/javascript" src="js/util.js"></script>
-		<script type="text/javascript" src="js/global.js"></script>
-		
+		<!-- Script dependencies at end of document -->
 	</head>
 	<body>
 <!-- SPLASH VIEW -->
-		<div data-role="page" id="splash" onload="">
+		<div data-role="page" id="splash">
 			<section data-role="content">
-				<h1 style="text-align: center; font-size: 250%; margin:30px 0px 0px 0px"> Weight2Grade </h1>
-				<h1 style="text-align: center; margin: 0px"> loading... </h1>
+				<h1 style="text-align: center;"> Thank you for using </h1>
+				<h1 style="text-align: center; font-size: 400%; margin:0px"> Weight2Grade </h1>
 			</section>
-			<footer data-role="footer" data-position="fixed" style="height: 66%">
 			<script>
-				setTimeout(function() {$.mobile.loading('show');}, 1);
-				setTimeout(function() {
-					$.mobile.changePage("#homeView", "fade");
-					$.mobile.loading("hide");
-				},1000);
+				setTimeout(function(){$.mobile.changePage("#homeView", "fade");},3000);
 			</script>
-			</footer>
-		</div><!-- end page -->
-		
+		</div>
 <!-- HOME VIEW -->
 		<div data-role="page" id="homeView">
         	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
            		<h1>Weight2Grade</h1>
 				<a href="#" data-icon="back" class="ui-btn-left ui-state-disabled" style="padding-bottom: 5px">Back</a>
+				<!--<nav data-role="navbar">
+					<ul>
+						<li><a href="#homeView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
+						<li><a href="#list" data-icon="star">Priority View</a></li>
+						<li><a href="#options" data-icon="gear">Options</a></li>
+					</ul>
+				</nav>-->
             </header>
 			<section data-role="content">
-				<form id="classAdd" data-ajax="false" onsubmit="handleAddClassForm();return false;">
 				<ul data-role="listview" class="hasBadges" data-inset="true" id="classList">
-					<li data-role="list-divider" id="insertClass">
+					<li data-role="list-divider">
 						<h1>List of Classes</h1>	
 					</li>
-					<li class="ui-field-contain addClassForm" style="display:none">
+					<li data-icon="false">
+						<a href="#classView" class="ui-link-inherit">
+							<h2>BIO 2040</h2>
+							<p> Introduction to animal anatomy. </p>
+							<p class="ui-li-aside">3 / 6</p>
+							<div class="progress">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge">55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >75</span>
+								</div>
+								<div style=" width: 35%" role="progressbar" class="progress-bar progress-bar-default">
+									35
+								</div>
+								<div style="float: right; width: 25%" role="progressbar" class="progress-bar progress-bar-danger">
+									25
+								</div>
+							</div>
+						</a>
+					</li>
+					<li data-icon="false">
+						<a href="#classView" class="ui-link-inherit">
+							<h2>ENG 2010</h2>
+							<p> Comparative literature II. </p>
+							<p class="ui-li-aside">2 / 10</p>
+							<div class="progress">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge" >55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >75</span>
+								</div>									
+								<div style=" width: 24%" role="progressbar" class="progress-bar progress-bar-default">
+									24
+								</div>
+							</div>
+						</a>
+					</li>
+					<li data-icon="false">
+						<a href="#classView" class="ui-link-inherit">
+							<h2>MATH 1040</h2>
+							<p> Advanced multivariable calculus. <br> Section 1 with Ms.Bennett. </p>
+							<p class="ui-li-aside">4 / 15</p>
+							<div class="progress">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge" >55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >70</span>
+								</div>									
+								<div style=" width: 42%" role="progressbar" class="progress-bar progress-bar-default">
+									42
+								</div>
+								<div style="float: right; width: 8%" role="progressbar" class="progress-bar progress-bar-danger ">
+									8
+								</div>
+							</div>
+						</a>
+					</li>
+					<li data-icon="false">
+						<a href="#classView" class="ui-link-inherit">
+							<h2>MUSIC 3060</h2>
+							<p> ELECTIVE. Classical music analysis and composition. </p>
+							<p class="ui-li-aside">2 / 8</p>
+							<div class="progress">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge" >55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >90</span>
+								</div>									
+								<div style=" width: 10%" role="progressbar" class="progress-bar progress-bar-default">
+									10
+								</div>
+								<div style="float: right; width: 15%" role="progressbar" class="progress-bar progress-bar-danger ">
+									15 
+								</div>
+							</div>
+						</a>
+					</li>
+					<li data-icon="false">
+						<a href="#classView" class="ui-link-inherit">
+							<h2>PHYS 3100</h2>
+							<p> ELECTIVE. Behavioural psychology III. </p>
+							<p class="ui-li-aside">3 / 8</p>
+							<div class="progress">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge" >55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >80</span>
+								</div>									
+								<div style=" width: 25%" role="progressbar" class="progress-bar progress-bar-default">
+									25
+								</div>
+								<div style="float: right; width: 15%" role="progressbar" class="progress-bar progress-bar-danger ">
+									15
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="ui-field-contain addForm" style="display:none">
 						<label for="addClassCode">Class Code:</label>
-						<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="PYSCH 101" data-clear-btn="true" maxlength="30" />
+						<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="PYSCH 101" data-clear-btn="true" />
 					</li>
-					<li class="ui-field-contain addClassForm" style="display:none">
+					<li class="ui-field-contain addForm" style="display:none">
 						<label for="addClassDesc">Description:</label>
-						<textarea data-mini="true" type="text" name="addClassDesc" id="addClassDesc" value="" placeholder="Intro to psychology" data-clear-btn="true" maxlength="250"></textarea>
+						<textarea data-mini="true" type="text" name="addClassDesc" id="addClassDesc" value="" placeholder="Intro to psychology" data-clear-btn="true"></textarea>
 					</li>
-					<li class="ui-field-contain addClassForm" style="display:none">
+					<li class="ui-field-contain addForm" style="display:none">
 						<label for="addClassGoal">Target Grade:</label>
 						<input type="range" name="addClassGoal" id="addClassGoal" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
 					</li>
-					<li class="addClassForm" style="display:none">
+					<li class="addForm" style="display:none">
 						<fieldset class="ui-grid-b">
 							<div class="ui-block-a"></div>
 							<div class="ui-block-b"></div>
-							<div class="ui-block-c"><input type="submit" value="Add" data-mini="true"/></div>
+							<div class="ui-block-c"><button type="submit" class="ui-btn ui-corner-all ui-btn-a ui-mini ui-btn-active">Add</button></div>
 			            </fieldset>
 					</li>
 					<li>
 						<a id="addToggle" class="ui-btn ui-icon-plus ui-btn-icon-left" onclick="toggleAddForm();">Add Class</a>
 					</li>
 				</ul>
-				</form>
 			</section>
 		</div><!-- end page -->
 
@@ -109,9 +204,43 @@
         	<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
            		<h1>Weight2Grade</h1>
 				<a href="#homeView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
+				<!--<nav data-role="navbar">
+					<ul>
+						<li><a href="#classView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
+						<li><a href="#list" data-icon="star">Priority View</a></li>
+						<li><a href="#options" data-icon="gear">Options</a></li>
+					</ul>
+				</nav>-->
             </header>
-			<section data-role="content" style="margin:-1px" id="displayClass">
+			<section data-role="content" style="margin:-1px">
 				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
+					<li data-icon="false">
+						<a class="ui-link-inherit not-active">
+							<h2>BIO 2040</h2>
+							<p> Introduction to animal anatomy. </p>
+							<p class="ui-li-aside">3 / 6</p>
+							<div class="progress" data-total-weight="100" id="bar">
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up"></div>
+									<span class="badge">55</span>
+								</div>
+								<div class="badge-box" style="padding-left: 0px">
+									<div class="carat-up carat-up-success"></div>
+									<span class="badge badge-success" >75</span>
+								</div>
+								<div id="grade" style="width: 35%; z-index: 5" role="progressbar" class="progress-bar progress-bar-default">
+									35
+								</div>
+								<div id="hoverGrade" style="width: 0%; display: none" role="progressbar" class="progress-bar progress-bar-warning">
+									0
+								</div>
+								<div id="fail" style="float: right; width: 25%" role="progressbar" class="progress-bar progress-bar-danger ">
+									25
+								</div>
+							</div>
+						</a>
+						<a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a>
+					</li>
 				</ul>
 				<div data-role="collapsibleset" id="addSpace1">
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
@@ -125,6 +254,17 @@
 									<h2>Lab 1</h2>
 									<p>Report for cow eyeball dissection.</p>
 									<p class="ui-li-aside">March 3rd, 2015</p>
+									<strong><span>&#215;</span>30</strong>
+								</a>
+							</li>
+							<li>
+								<a href="#assView" class="ui-link-inherit">
+									<div class="circle" data-value="0.30" data-weight="30">
+										<strong></strong>
+									</div>
+									<h2>Lab 2</h2>
+									<p>Report for squid dissection and diagram.</p>
+									<p class="ui-li-aside">March 7th, 2015</p>
 									<strong><span>&#215;</span>30</strong>
 								</a>
 							</li>
@@ -157,6 +297,28 @@
 									<h2>Quiz 2</h2>
 									<p>Anatomy of vertebrates.</p>
 									<p class="ui-li-aside">April 1st, 2015</p>
+									<strong><span>&#215;</span>10</strong>
+								</a>
+							</li>
+							<li>
+								<a href="#assView" class="ui-link-inherit">
+									<div class="circle" data-value="0" data-weight="10">
+										<strong></strong>
+									</div>
+									<h2>Quiz 3</h2>
+									<p>Cellular biology and mammal physiology.</p>
+									<p class="ui-li-aside">April 15th, 2015</p>
+									<strong><span>&#215;</span>10</strong>
+								</a>
+							</li>
+							<li>
+								<a href="#assView" class="ui-link-inherit">
+									<div class="circle" data-value="0" data-weight="10">
+										<strong></strong>
+									</div>
+									<h2>Quiz 4</h2>
+									<p>Evolutionary reasons for adaptations.</p>
+									<p class="ui-li-aside">April 29th, 2015</p>
 									<strong><span>&#215;</span>10</strong>
 								</a>
 							</li>
@@ -203,7 +365,7 @@
 								<div class="ui-block-c"><button type="submit" class="ui-btn ui-corner-all ui-btn-a ui-mini ui-btn-active">Add</button></div>
 				            </fieldset>
 						</li>
-						<li class="taskFormBtn" style="border-top-left-radius: 0px; border-top-right-radius: 0px">
+						<li>
 							<a id="taskToggle" class="ui-btn ui-icon-plus ui-btn-icon-left" onclick="toggleTaskForm();">Add Task</a>
 						</li>
 					</ul>
@@ -287,5 +449,27 @@
 				</ul>
 			</section>
 		</div>
+
+<!-- SCRIPTS -->
+		<!-- Declare jQuery -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+				
+		<!-- MUST NOT MOVE (after jQuery, before jQuery Mobile) -->
+		<script>
+		$(document).on("mobileinit", function(){
+			$.mobile.defaultPageTransition = 'none';
+		});
+		</script>
+		
+		<!-- Declare jQueryMobile -->
+		<script src="js/jquery.mobile.js"></script>
+		
+		<!-- Declare Circle Progress -->
+		<script type="text/javascript" src="js/circle-progress.js"></script>
+		
+		<!-- Declare Custom Scripts -->
+		<script type="text/javascript" src="js/data.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
 	</body>
 </html>

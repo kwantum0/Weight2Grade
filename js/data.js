@@ -94,7 +94,8 @@ function tblClassInsert(code, desc, target, onSuccess, onFail) {
 			+ " (class_code, class_description, pass_grade, target_grade)"
 			+ " VALUES (?, ?, ?, ?);";
 	db.transaction(function(tx) {
-		tx.executeSql(sql, [code, desc, pass, target], onSuccess, onFail);
+		tx.executeSql(sql, [code, desc, pass, target], success, onFail);
+		tx.executeSql("SELECT last_insert_rowid() AS id FROM tblClass", null, onSuccess, fail)
 	});
 }
 function tblClassUpdate(code, desc, pass, target, onSuccess, onFail) {
@@ -105,20 +106,28 @@ function tblClassUpdate(code, desc, pass, target, onSuccess, onFail) {
 		tx.executeSql(sql, [code, desc, pass, target, id], onSuccess, onFail);
 	});
 }
-function tblClassDelete(id, onSuccess, onFail) {
+function tblClassDelete(onSuccess, onFail) {
+	var id = localStorage.getItem("classID");
 	db.transaction(function(tx) {
 		tx.executeSql("DELETE FROM tblAssignment WHERE class_id = ?;", [id], success, fail);
 		tx.executeSql("DELETE FROM tblClass WHERE class_id = ?;", [id], onSuccess, onFail);
 	});
 }
-function tblClassList(callbackFunc) {
+function tblClassList(callbackFunc) { // read
 	db.transaction(function(tx) {
 		tx.executeSql("SELECT * FROM tblClass;", null, callbackFunc, fail);
 	});
 }
+function tblClassRead(callbackFunc) { // read
+	var id = localStorage.getItem("classID");
+	db.transaction(function(tx) {
+		tx.executeSql("SELECT * FROM tblClass WHERE class_id = ?;", [id], callbackFunc, fail);
+	});
+}//}
 
 //{ Assignment Table
-function tblAssignmentInsert(classId, type, name, desc, due, weight, bonus, onSuccess, onFail) {
+function tblAssignmentInsert(type, name, desc, due, weight, bonus, onSuccess, onFail) {
+	var classId = localStorage.getItem("classID");
 	var sql = "INSERT INTO tblAssignment"
 			+ " (class_id, type_name, ass_name, ass_description, date_due, weight_total, is_bonus, state)" 
 			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -146,6 +155,12 @@ function tblAssignmentList(callbackFunc) { //read
 		tx.executeSql("SELECT * FROM tblAssignment WHERE class_id = ?;", [classId], callbackFunc, fail);
 	});
 }
+function tblAssignmentRead(callbackFunc) { //read
+	var id = localStorage.getItem("assignmentID");
+	db.transaction(function(tx) {
+		tx.executeSql("SELECT * FROM tblAssignment WHERE ass_id = ?;", [id], callbackFunc, fail);
+	});
+}
 function tblAssignmentSetCompleted(id, submit, onSuccess, onFail) {
 	var sql = "UPDATE tblAssignment SET date_submitted = ?, state = ? WHERE ass_id = ?;";
 	db.transaction(function(tx) {
@@ -162,14 +177,16 @@ function tblAssignmentSetMarked(id, achieved, onSuccess, onFail) {
 /****************************
  *	  AGGREGATE ACTIONS		*
  ****************************/
- //{ Gets a class': Ass_Count, Total_Weight, Achieved_Weight, Lost_Weight
+ //{ Gets a class's: Ass_Count, Total_Weight, Achieved_Weight, Lost_Weight
 function dbGetClassInfo(classId, callbackFunc) { //read
-	var sql = "SELECT count(*) AS Ass_Count,"
+	var sql = "SELECT state,"
+			+ " count(*) AS Ass_Count,"
 			+ " total(weight_total) AS Total_Weight,"
 			+ " round(total(weight_total * weight_achieved) + 0.5) AS Achieved_Weight,"
 			+ " round(total(weight_total * (1 - weight_achieved)) -0.5) AS Lost_Weight"
 			+ " FROM tblAssignment"
-			+ " WHERE class_id = ?;";
+			+ " WHERE class_id = ?"
+			+ " GROUP BY state;";
 	db.transaction(function(tx) {
 		tx.executeSql(sql, [classId], callbackFunc, fail);
 	});

@@ -5,6 +5,15 @@
 		Daniel Franz	2015.04.01: created
 
 */
+label.error {
+	font-size: .75em;
+	color: #CE6F6C;
+	text-align: right;
+	display: block;
+	width: 100%;
+	margin-top: 8px;
+	white-space: normal;
+}
 li {
 	list-style: none;
 }
@@ -34,7 +43,7 @@ li {
 }
 .badge {
 	padding: 4px; 
-	width: 2em; 
+	width: 1.5em; 
 	text-align: center;
 }
 .badge-box{
