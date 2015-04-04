@@ -39,7 +39,7 @@ function dbCreateTables() {
 			+ "weight_total INTEGER,"
 			+ "weight_achieved REAL," // percentage of weight: 0.5 => 50%
 			+ "is_bonus BOOLEAN,"
-			+ "state VARCHAR(4),"
+			+ "state VARCHAR(4)," // one of {OUTS, MARK, COMP}
 			+ "FOREIGN KEY(class_id) REFERENCES tblClass(class_id),"
 			+ "FOREIGN KEY(type_name) REFERENCES tblType(type_name))", null, success, fail);
 		// required for FORIEGN KEYs to work
@@ -83,7 +83,7 @@ function tblTypeDelete(strName) {
 }
 function tblTypeList(callbackFunc) { //read
 	db.transaction(function(tx) {
-		tx.executeSql("SELECT * FROM tblType;", null, callbackFunc, fail); 
+		tx.executeSql("SELECT * FROM tblType ORDER BY type_name ASC;", null, callbackFunc, fail); 
 	});
 }//}
 
@@ -132,7 +132,8 @@ function tblAssignmentInsert(type, name, desc, due, weight, bonus, onSuccess, on
 			+ " (class_id, type_name, ass_name, ass_description, date_due, weight_total, is_bonus, state)" 
 			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 	db.transaction(function(tx) {
-		tx.executeSql(sql, [classId, type, name, desc, due, weight, bonus, "OUTS"], onSuccess, onFail);
+		tx.executeSql(sql, [classId, type, name, desc, due, weight, bonus, "OUTS"], success, onFail);
+		tx.executeSql("SELECT last_insert_rowid() AS id FROM tblClass", null, onSuccess, fail)
 	});
 }
 function tblAssignmentUpdate(type, name, desc, due, submit, weight, achieved, bonus, onSuccess, state, onFail) {
@@ -152,7 +153,7 @@ function tblAssignmentDelete(id, onSuccess, onFail) {
 function tblAssignmentList(callbackFunc) { //read
 	var classId = localStorage.getItem("classID");
 	db.transaction(function(tx) {
-		tx.executeSql("SELECT * FROM tblAssignment WHERE class_id = ?;", [classId], callbackFunc, fail);
+		tx.executeSql("SELECT * FROM tblAssignment WHERE class_id = ? ORDER BY date_due DESC;", [classId], callbackFunc, fail);
 	});
 }
 function tblAssignmentRead(callbackFunc) { //read
@@ -182,8 +183,8 @@ function dbGetClassInfo(classId, callbackFunc) { //read
 	var sql = "SELECT state,"
 			+ " count(*) AS Ass_Count,"
 			+ " total(weight_total) AS Total_Weight,"
-			+ " round(total(weight_total * weight_achieved) + 0.5) AS Achieved_Weight,"
-			+ " round(total(weight_total * (1 - weight_achieved)) -0.5) AS Lost_Weight"
+			+ " total(weight_total * weight_achieved) AS Achieved_Weight,"
+			+ " total(CASE WHEN is_bonus THEN 0 ELSE (1 - weight_achieved) * weight_total END) AS Lost_Weight"
 			+ " FROM tblAssignment"
 			+ " WHERE class_id = ?"
 			+ " GROUP BY state;";

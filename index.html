@@ -40,6 +40,8 @@
 		</script>
 		<script src="js/jquery.mobile.js"></script>
 		<script type="text/javascript" src="js/validate.min.js"></script>
+		<!-- 3rd Party Plugins -->
+		<script type="text/javascript" src="js/spinbox.js"></script>
 		<script type="text/javascript" src="js/circle-progress.js"></script>
 		<!-- Custom Scripts -->
 		<script type="text/javascript" src="js/data.js"></script>
@@ -79,7 +81,7 @@
 					</li>
 					<li class="ui-field-contain addClassForm" style="display:none">
 						<label for="addClassCode">Class Code:</label>
-						<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="PYSCH 101" data-clear-btn="true" maxlength="30" />
+						<input data-mini="true" type="text" name="addClassCode" id="addClassCode" value="" placeholder="PSYCH 101" data-clear-btn="true" maxlength="30" />
 					</li>
 					<li class="ui-field-contain addClassForm" style="display:none">
 						<label for="addClassDesc">Description:</label>
@@ -111,55 +113,23 @@
 				<a href="#homeView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
             </header>
 			<section data-role="content" style="margin:-1px" id="displayClass">
+				<form id="assAdd" data-ajax="false" onsubmit="handleAddAssForm();return false;">
 				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
 				</ul>
 				<div data-role="collapsibleset" id="addSpace1">
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
-						<h2>Marked Tasks</h2>
+						<h3>Marked Tasks</h3>
 						<ul data-role="listview" id="markedAssList">
-							<li>
-								<a href="#assView" class="ui-link-inherit">
-									<div class="circle" data-value="0.87" data-weight="30">
-										<strong></strong>
-									</div>
-									<h2>Lab 1</h2>
-									<p>Report for cow eyeball dissection.</p>
-									<p class="ui-li-aside">March 3rd, 2015</p>
-									<strong><span>&#215;</span>30</strong>
-								</a>
-							</li>
 						</ul>
 					</div>
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
-						<h2>Completed Tasks</h2>
+						<h3>Completed Tasks</h3>
 						<ul data-role="listview" id="completedAssList">
-							<li>
-								<a href="#assView" class="ui-link-inherit">
-									<div class="circle" data-value="0" data-weight="10">
-										<strong></strong>
-									</div>
-									<h2>Quiz 1</h2>
-									<p>Major branches of life, and animal taxonomy.</p>
-									<p class="ui-li-aside">March 20th, 2015</p>
-									<strong><span>&#215;</span>10</strong>
-								</a>
-							</li>
 						</ul>
 					</div>
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-collapsed="false" style="border-radius:0px">
-						<h2>Outstanding Tasks</h2>
+						<h3>Outstanding Tasks</h3>
 						<ul data-role="listview" id="outstandingAssList">
-							<li>
-								<a href="#assView" class="ui-link-inherit">
-									<div class="circle" data-value="0" data-weight="10">
-										<strong></strong>
-									</div>
-									<h2>Quiz 2</h2>
-									<p>Anatomy of vertebrates.</p>
-									<p class="ui-li-aside">April 1st, 2015</p>
-									<strong><span>&#215;</span>10</strong>
-								</a>
-							</li>
 						</ul>
 					</div>
 					<ul data-role="listview" data-inset="true" style="margin-top:-1px">
@@ -167,40 +137,37 @@
 							<fieldset class="ui-grid-a">
 								<div class="ui-block-a">
 									<select data-mini="true" name="addAssType" id="addAssType">
-										<option value="Assignment">Assignment</option>
-										<option value="Assignment">Exam</option>
-										<option value="Assignment">Lab</option>
-										<option value="Assignment">Quiz</option>
-										<option value="Assignment">Paper</option>
-										<option value="Assignment">Project</option>
-										<option value="Assignment">Worksheet</option>
 									</select>
 								</div>
 								<div class="ui-block-b" style="padding-left:14px">
 									<select name="addAssBonus" id="addAssBonus" data-role="slider">
-										<option value="off">Required</option>
-										<option value="on">Bonus</option>
+										<option value="false">Required</option>
+										<option value="true">Bonus</option>
 									</select>
 								</div>
 							</fieldset>
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
 							<label for="addAssName">Name:</label>
-							<input data-mini="true" type="text" name="addAssName" id="addAssName" value="" placeholder="Final Presentation" data-clear-btn="true" />
+							<input data-mini="true" type="text" name="addAssName" id="addAssName" value="" placeholder="Final Presentation" data-clear-btn="true" maxlength="30"/>
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
 							<label for="addAssDesc">Description:</label>
-							<textarea data-mini="true" type="text" name="addAssDesc" id="addAssDesc" value="" placeholder="Link between sport concussions and poor academic performance." data-clear-btn="true"></textarea>
+							<textarea data-mini="true" type="text" name="addAssDesc" id="addAssDesc" value="" placeholder="Link between sport concussions and poor academic performance." data-clear-btn="true" maxlength="250"></textarea>
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
 							<label for="addAssDate">Due Date:</label>
 							<input data-mini="true" type="date" name="addAssDate" id="addAssDate" value="" />
 						</li >
+						<li class="ui-field-contain taskForm" style="display:none">
+							<label for="addAssWeight">Weight:</label>
+							<input data-mini="true" data-role="spinbox" type="text" name="addAssWeight" id="addAssWeight" value="10" step="5" min="0" max="1000" />
+						</li >
 						<li class="taskForm" style="display:none">
 							<fieldset class="ui-grid-b">
 								<div class="ui-block-a"></div>
 								<div class="ui-block-b"></div>
-								<div class="ui-block-c"><button type="submit" class="ui-btn ui-corner-all ui-btn-a ui-mini ui-btn-active">Add</button></div>
+								<div class="ui-block-c"><input type="submit" value="Add" data-mini="true"/></div>
 				            </fieldset>
 						</li>
 						<li class="taskFormBtn" style="border-top-left-radius: 0px; border-top-right-radius: 0px">
@@ -208,6 +175,7 @@
 						</li>
 					</ul>
 				</div>
+				</form>
 			</section>
 			
 <!-- EDIT CLASS POPUP -->		

@@ -80,11 +80,11 @@ function revealCircles() {
 
 //{ Animates both the circular progress bar and the class bar
 function pumpCircle(circle){
-	$(".hoverGrade")[0].show();
+	$(".hoverGrade").show();
 	var weight = parseInt($(circle).attr('data-weight'));
 	var total = parseInt($("#bar").attr('data-total-weight'));
-	var percent = weight / total * 100;
-	$(".hoverGrade")[0].width(percent.toString() + "%");
+	var percent = Math.floor(weight / total * 100);
+	$(".hoverGrade").width(percent.toString() + "%");
 	$(circle).circleProgress({
 		value: 1,
 		size: 80,
@@ -94,16 +94,16 @@ function pumpCircle(circle){
 		fill: {color: "#FFAA3B"},
 		animation: { duration: 300 }
 	}).on('circle-animation-progress', function(event, progress){
-		var width = parseInt(weight * progress);
-		$(".hoverGrade")[0].text(width);
+		var width = parseInt(percent * progress);
+		$(".hoverGrade").text(width);
 	});
 }//}
 
 //{ Resets both the circular progress bar and the class bar
 function deflateCircle(circle){
-	$(".hoverGrade")[0].hide();
-	$(".hoverGrade")[0].text("");
-	$(".hoverGrade")[0].width(0);
+	$(".hoverGrade").hide();
+	$(".hoverGrade").text("");
+	$(".hoverGrade").width(0);
 	$(circle).circleProgress({
 		value: 0,
 	})
@@ -135,36 +135,84 @@ function setAssId(id) {
 	localStorage.setItem("assignmentID", id);
 }
 
+//{ Sets the hover event for assignments li 
+function setHoverStates() {
+	$("#outstandingAssList > li > a").hover(function() {
+		pumpCircle($(this).find(".circle"));
+	}, function(){
+		deflateCircle($(this).find(".circle"));
+	});
+	$("#completedAssList > li > a").hover(function() {
+		pumpCircle($(this).find(".circle"));
+	}, function(){
+		deflateCircle($(this).find(".circle"));
+	});
+}//}
+
 //{ Rebuilds all the jquery components on a page
 function refreshLists() {
 	$('ul[data-role="listview"]').listview().listview("refresh");
 	resetBadges(null, null);
+	revealCircles();
+	setHoverStates();
 }//}
 /****************************
  *		  VALIDATION		*
  ****************************/
- //{ Sets up the AddForm validation
-$("#classAdd").validate({
-	errorPlacement: function(error, element) {
-		error.appendTo(element.parent("div").parent("li"));
-	},
-	rules: {
-		addClassCode: {
-			required: true,
-			rangelength: [2,30]
+function refreshValidation() {
+	//{ Sets up the Class Add Form validation
+	$("#classAdd").validate({
+		errorPlacement: function(error, element) {
+			error.appendTo(element.parent("div").parent("li"));
 		},
-		addClassDesc: {
-			rangelength: [0,250]
+		rules: {
+			addClassCode: {
+				required: true,
+				rangelength: [2,30]
+			},
+			addClassDesc: {
+				rangelength: [0,250]
+			},
+			addClassGoal: {
+				range: [0,100]
+			}
 		},
-		addClassGoal: {
-			range: [0,100]
+		messages: {
+			addClassCode: "Class Code must be between 2 and 30 characters long.",
+			addClassDesc: "Description must be less than 250 characters long.",
+			addClassGoal: "Target Grade is a percent between 0 and 100."
 		}
-	},
-	messages: {
-		addClassCode: "Class Code must be between 2 and 30 characters long.",
-		addClassDesc: "Description must be less than 250 characters long.",
-		addClassGoal: "Must be a percent between 0 and 100."
-	}
-});
-//}
+	});//}
+	//{ Sets up the Assignment Add Form validation
+	$("#assAdd").validate({
+		errorPlacement: function(error, element) {
+			error.appendTo(element.closest("li"));
+		},
+		rules: {
+			addAssName: {
+				required: true,
+				rangelength: [2,30]
+			},
+			addAssDesc: {
+				rangelength: [0,250]
+			},
+			addAssDate: {
+				required: true,
+				date: true
+			},
+			addAssWeight: {
+				required: true,
+				range: [0,1000]
+			}
+		},
+		messages: {
+			addAssName: "Name must be between 2 and 30 characters long.",
+			addAssDesc: "Description must be less than 250 characters long.",
+			addAssDate: "Due Date is required.",
+			addAssWeight: "Weight must be whole number between 1 and 1,000."
+		}
+	});//}
+}
+
+
 

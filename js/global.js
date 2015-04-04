@@ -41,19 +41,18 @@ $(document).ready(function() {
  ****************************/
 // Controller for navigation events
 $(window).on("pagebeforeshow", function() {
+	// actions that always happen
+	refreshValidation();
+	// actions that only happen on certain pages
 	var page = location.hash;
-	switch(page)
-	{
-		//{ Class List View
+	switch(page){
 		case "#homeView":
-			setClassId(-1);
-			setAssId(-1);
 			populateClassList();
 			break;
-		//}
 		case "#classView":
-			setAssId(-1);
 			displayClass();
+			populateTypeList();
+			populateAssList();
 			break;
 		case "#assView":
 			break;
@@ -62,8 +61,9 @@ $(window).on("pagebeforeshow", function() {
 	}
 });
 
+
 //{ Shared Callback
-function moreClassInfo(item, isLast, fn) {
+function moreClassInfo(item, fn) {
 	return function(tx, res) {
 		var rs = res.rows;
 		var total = 0;
@@ -85,17 +85,35 @@ function moreClassInfo(item, isLast, fn) {
 			total += r.Ass_Count;
 		}
 		fn(item, total, weight, achieved, lost, comp);
-		if(isLast){
-			refreshLists();
-		}
 	};
 }//}
 
+//{ Action that populates the select dropdown
+function populateTypeList() {
+	// reset the type list
+	$('#addAssType').empty();
+	// iterate over each item in callback
+	tblTypeList(typeListIterate);
+}
+// { Populate Type List dependences
+function typeListIterate(tx, res) {
+	var rs = res.rows;
+	for(var i = 0; i < rs.length; i++){
+		var name = rs.item(i).type_name;
+		var opt = '<option value="' + name + '" ' 
+				+ (i == 0 ? 'selected' : '') + '>' 
+				+ name + '</option>';
+		$('#addAssType').append(opt);
+	}
+	$('#addAssType').selectmenu( "refresh" );
+}//}
+//}	
+	
 //{ Action that populates the class list
 function populateClassList() {
 	// reset the class list
 	$('#classList li:not(:first):not(:last):not(.addClassForm)').remove();
-	// iterate over each class item through callback
+	// iterate over each item in callback
 	tblClassList(classListIterate);
 }
 //{ Populate Class List dependences
@@ -106,7 +124,7 @@ function classListIterate(tx, res) {
 		var r = rs.item(i);
 		var id = r.class_id;
 		// get more class information through callback
-		dbGetClassInfo(id, moreClassInfo(r, i >= rs.length - 1, buildClassListItem));
+		dbGetClassInfo(id, moreClassInfo(r, buildClassListItem));
 	}
 }
 function buildClassListItem(item, total, weight, achieved, lost, comp){
@@ -137,6 +155,7 @@ function buildClassListItem(item, total, weight, achieved, lost, comp){
 		   + '</div></a></li>';
 	// add the element to the page
 	$(li).insertAfter("#insertClass");
+	refreshLists();
 }//}
 //}
 
@@ -175,7 +194,7 @@ function classCurry(tx, res) {
 	// get the record and id from the record set
 	var r = res.rows.item(0);
 	var id = r.class_id;
-	dbGetClassInfo(id, moreClassInfo(r, true, buildClassHeader));
+	dbGetClassInfo(id, moreClassInfo(r, buildClassHeader));
 }
 function buildClassHeader(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
@@ -206,9 +225,73 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 		   +			lost
 		   +		'</div>'
 		   +	'</div>'
-		   + '</div></a><a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a></li></ul>';
+		   + '</div><h3><span class="small">Total Weight:</span>' + weight + '</h3>'
+		   + '</a><a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a></li></ul>';
 	// add the element to the page
 	$("div#classView section").prepend(ul);
+	refreshLists();
+}//}
+//}
+
+//{ Action that adds a new assignment
+function handleAddAssForm() {
+	if($("#assAdd").valid()) {
+		var type = $("#addAssType").val();
+		var name = $("#addAssName").val().trim();
+		var desc = $("#addAssDesc").val().trim();
+		var bonus = $("#addAssBonus").val() === 'true';
+		var due = $("#addAssDate").val();
+		var weight = $("#addAssWeight").val();
+		
+		tblAssignmentInsert(type, name, desc, due, weight, bonus, addAssSuccess, addAssFail);
+	}
+}
+//{ Add Ass dependences
+function addAssSuccess(tx, result) {
+	var id = result.rows.item(0).id;
+	setAssId(id);
+	$.mobile.changePage("#assView");
+	$('#assAdd').trigger("reset");
+	toggleTaskForm();
+}
+function addAssFail(tx, result) {
+	alert("There was a problem adding the assignment.\nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that populate the assignment lists
+function populateAssList() {
+	// already empty because of displayClass()
+	// iterate over each item in a callback
+	tblAssignmentList(assListIterate);
+}
+// { Populate Ass List dependences 
+function assListIterate(tx, res) {
+	var rs = res.rows;
+	for(var i = 0; i < rs.length; i++){
+		// get the record and state
+		var r = rs.item(i);
+		var weight = parseFloat(r.weight_achieved);
+		weight = isNaN(weight) ? 0 : weight;
+		// build the element
+		var li = '<li><a href="#assView" class="ui-link-inherit" onclick="setAssId(' + r.ass_id + ');">'
+			   + 	'<div class="circle" data-value="' + weight + '" data-weight="' + r.weight_total + '">'
+			   +		'<strong></strong>'
+			   +	'</div>'
+			   +	'<h2>' + r.ass_name + '</h2><p>' + r.ass_description + '</p>'
+			   +	'<p class="ui-li-aside">' + r.date_due + '</p>'
+			   +	'<strong><span>&#215;</span>' + r.weight_total + '</strong>'
+			   +	'</a></li>';
+		// place element in the right list
+		if(r.state == "MARK"){
+			$("#markedAssList").append(li);
+		}else if(r.state == "COMP"){
+			$("#completedAssList").append(li);
+		}else{
+			$("#outstandingAssList").append(li);
+		}
+	}
+	refreshLists();
 }//}
 //}
 /****************************
@@ -247,19 +330,6 @@ $(document).on("collapsibleexpand", function() {
 		toggleTaskForm();
 	}
 	$(".circle").circleProgress("redraw");
-});
-//}
-
-//{ Assignment Item Hover Events
-$("#outstandingAssList > li > a").hover(function() {
-	pumpCircle($(this).find(".circle"));
-}, function(){
-	deflateCircle($(this).find(".circle"));
-});
-$("#completedAssList > li > a").hover(function() {
-	pumpCircle($(this).find(".circle"));
-}, function(){
-	deflateCircle($(this).find(".circle"));
 });
 //}
 
