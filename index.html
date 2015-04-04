@@ -51,7 +51,7 @@
 	</head>
 	<body>
 <!-- SPLASH VIEW -->
-		<div data-role="page" id="splash" onload="">
+	<!--	<div data-role="page" id="splash" onload="">
 			<section data-role="content">
 				<h1 style="text-align: center; font-size: 250%; margin:30px 0px 0px 0px"> Weight2Grade </h1>
 				<h1 style="text-align: center; margin: 0px"> loading... </h1>
@@ -65,7 +65,7 @@
 				},1000);
 			</script>
 			</footer>
-		</div><!-- end page -->
+		</div><!-- end page --> 
 		
 <!-- HOME VIEW -->
 		<div data-role="page" id="homeView">
@@ -74,7 +74,7 @@
 				<a href="#" data-icon="back" class="ui-btn-left ui-state-disabled" style="padding-bottom: 5px">Back</a>
             </header>
 			<section data-role="content">
-				<form id="classAdd" data-ajax="false" onsubmit="handleAddClassForm();return false;">
+				<form id="classAdd" data-ajax="false" onsubmit="return false;">
 				<ul data-role="listview" class="hasBadges" data-inset="true" id="classList">
 					<li data-role="list-divider" id="insertClass">
 						<h1>List of Classes</h1>	
@@ -95,7 +95,9 @@
 						<fieldset class="ui-grid-b">
 							<div class="ui-block-a"></div>
 							<div class="ui-block-b"></div>
-							<div class="ui-block-c"><input type="submit" value="Add" data-mini="true"/></div>
+							<div class="ui-block-c">
+								<a type="button" class="ui-btn ui-corner-all ui-mini ui-btn-a ui-btn-active" onclick="handleAddClassForm();">Add</a>
+								</div>
 			            </fieldset>
 					</li>
 					<li>
@@ -113,9 +115,7 @@
 				<a href="#homeView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
             </header>
 			<section data-role="content" style="margin:-1px" id="displayClass">
-				<form id="assAdd" data-ajax="false" onsubmit="handleAddAssForm();return false;">
-				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
-				</ul>
+				<form id="assAdd" data-ajax="false" onsubmit="return false;">
 				<div data-role="collapsibleset" id="addSpace1">
 					<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
 						<h3>Marked Tasks</h3>
@@ -167,7 +167,9 @@
 							<fieldset class="ui-grid-b">
 								<div class="ui-block-a"></div>
 								<div class="ui-block-b"></div>
-								<div class="ui-block-c"><input type="submit" value="Add" data-mini="true"/></div>
+								<div class="ui-block-c">
+									<a type="button" class="ui-btn ui-corner-all ui-mini ui-btn-a ui-btn-active" onclick="handleAddAssForm();">Add</a>
+								</div>
 				            </fieldset>
 						</li>
 						<li class="taskFormBtn" style="border-top-left-radius: 0px; border-top-right-radius: 0px">
@@ -181,20 +183,20 @@
 <!-- EDIT CLASS POPUP -->		
 			<div data-role="popup" id="editView" data-theme="a" data-overlay-theme="b" class="ui-corner-all">
 				<div style="width:400px"></div>
-				<form data-ajax="false" style="padding:10px 20px">
+				<form id="classEdit" data-ajax="false" style="padding:10px 20px">
 					<h3>Class Details</h3>
 					<label for="editClassCode">Class Code:</label>
-					<input data-mini="true" type="text" name="editClassCode" id="editClassCode" value="BIO 2040"/>
+					<input data-mini="true" type="text" name="editClassCode" id="editClassCode" value=""/>
 					<label for="editClassDesc">Description:</label>
-					<textarea data-mini="true" type="text" name="editClassDesc" id="editClassDesc" value="Introduction to animal anatomy.">Introduction to animal anatomy.</textarea>
+					<textarea data-mini="true" type="text" name="editClassDesc" id="editClassDesc" value="">Introduction to animal anatomy.</textarea>
 					<label for="editClassGoal">Target Grade:</label>
-					<input type="range" name="editClassGoal" id="editClassGoal" data-mini="true" value="75" min="0" max="100" data-highlight="true" />
+					<input type="range" name="editClassGoal" id="editClassGoal" data-mini="true" value="0" min="0" max="100" data-highlight="true" />
 					<label for="editClassPass">Pass Grade:</label>
-					<input type="range" name="editClassPass" id="editClassPass" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
+					<input type="range" name="editClassPass" id="editClassPass" data-mini="true" value="0" min="0" max="100" data-highlight="true" />
 					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding-top:20px">
-						<button type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active" onclick="window.location='index2.html#classView'">Save</button>
-						<button type="button" class="ui-btn ui-corner-all ui-btn-b" onclick="window.location='index2.html#homeView'">Delete</button>
-						<button type="button" class="ui-btn ui-corner-all ui-btn-a" onclick="window.location='index2.html#classView'">Cancel</button>
+						<a type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active" onclick="handleEditClassForm();">Save</a>
+						<a type="button" class="ui-btn ui-corner-all ui-btn-b" onclick="handleDeleteClassForm();">Delete</a>
+						<a type="button" data-rel="back" class="ui-btn ui-corner-all ui-btn-a">Cancel</a>
 					</fieldset>
 				</form>
 			</div><!-- end popup -->

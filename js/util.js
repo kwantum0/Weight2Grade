@@ -59,7 +59,6 @@ function resetBadges(event, ui) {
 	});
 }*/
 
-//}
 //{ Animates the circular progress bars
 function revealCircles() {
 	$.each($(".circle"), function(key, value){
@@ -92,7 +91,7 @@ function pumpCircle(circle){
 		thickness: 12,
 		startAngle: 0,
 		fill: {color: "#FFAA3B"},
-		animation: { duration: 300 }
+		animation: { duration: 600 }
 	}).on('circle-animation-progress', function(event, progress){
 		var width = parseInt(percent * progress);
 		$(".hoverGrade").text(width);
@@ -133,7 +132,7 @@ function setClassId(id) {
 //{ Sets the assignmnetId session variable
 function setAssId(id) {
 	localStorage.setItem("assignmentID", id);
-}
+}//}
 
 //{ Sets the hover event for assignments li 
 function setHoverStates() {
@@ -156,6 +155,7 @@ function refreshLists() {
 	revealCircles();
 	setHoverStates();
 }//}
+
 /****************************
  *		  VALIDATION		*
  ****************************/
@@ -210,6 +210,33 @@ function refreshValidation() {
 			addAssDesc: "Description must be less than 250 characters long.",
 			addAssDate: "Due Date is required.",
 			addAssWeight: "Weight must be whole number between 1 and 1,000."
+		}
+	});//}
+	//{ Sets up the Edit Class Form validation
+	$("#classEdit").validate({
+		errorPlacement: function(error, element) {
+			$(element).parent("div").after(error);
+		},
+		rules: {
+			editClassCode: {
+				required: true,
+				rangelength: [2,30]
+			},
+			editClassDesc: {
+				rangelength: [0,250]
+			},
+			editClassGoal: {
+				range: [0,100]
+			},
+			editClassPass: {
+				range: [0,100]
+			}
+		},
+		messages: {
+			editClassCode: "Class Code must be between 2 and 30 characters long.",
+			editClassDesc: "Description must be less than 250 characters long.",
+			editClassGoal: "Target Grade is a percent between 0 and 100.",
+			editClassPass: "Pass Grade is a percent between 0 and 100."
 		}
 	});//}
 }

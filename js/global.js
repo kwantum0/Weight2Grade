@@ -46,6 +46,7 @@ $(window).on("pagebeforeshow", function() {
 	// actions that only happen on certain pages
 	var page = location.hash;
 	switch(page){
+		case "":
 		case "#homeView":
 			populateClassList();
 			break;
@@ -57,6 +58,7 @@ $(window).on("pagebeforeshow", function() {
 		case "#assView":
 			break;
 		default:
+			$.mobile.changePage("index.html#homeView");
 			break;
 	}
 });
@@ -185,7 +187,7 @@ function addClassFail(tx, result) {
 //{ Action that displays a class
 function displayClass() {
 	// reset all the lists
-	$('div#classView section li:not(.taskForm):not(.taskFormBtn)').remove();
+	$('.hasBadges.addToHead').remove();
 	// get the class item through callback
 	tblClassRead(classCurry);
 }
@@ -202,7 +204,7 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 	lost	 = (lost <= 0 ? 0 : Math.floor(lost / weight * 100));
 	// build the element
 	var ul = '<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">'
-		   + '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ');">'
+		   + '<li data-icon="false"><a href="#classView" class="ui-link-inherit" style="pointer-events:none">'
 		   + 	'<h2>' + item.class_code + '</h2><p>' + item.class_description + '</p>'
 		   + 	'<p class="ui-li-aside">' + comp.toString() + ' / ' + total.toString() + '</p>'
 		   + '<div class="progress-wrapper">'
@@ -230,6 +232,13 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 	// add the element to the page
 	$("div#classView section").prepend(ul);
 	refreshLists();
+	
+	// change the defaults in the edit Form
+	$("#editClassCode").val(item.class_code);
+	$("#editClassDesc").val(item.class_description);
+	$("#editClassGoal").val(item.target_grade);
+	$("#editClassPass").val(item.pass_grade);
+	
 }//}
 //}
 
@@ -250,9 +259,9 @@ function handleAddAssForm() {
 function addAssSuccess(tx, result) {
 	var id = result.rows.item(0).id;
 	setAssId(id);
-	$.mobile.changePage("#assView");
 	$('#assAdd').trigger("reset");
 	toggleTaskForm();
+	$.mobile.changePage("index.html#assView");
 }
 function addAssFail(tx, result) {
 	alert("There was a problem adding the assignment.\nERROR MESSAGE: " + result.message);
@@ -261,7 +270,10 @@ function addAssFail(tx, result) {
 
 //{ Action that populate the assignment lists
 function populateAssList() {
-	// already empty because of displayClass()
+	// empty out the lists
+	$("#markedAssList").empty();
+	$("#completedAssList").empty();
+	$("#outstandingAssList").empty();
 	// iterate over each item in a callback
 	tblAssignmentList(assListIterate);
 }
@@ -293,6 +305,41 @@ function assListIterate(tx, res) {
 	}
 	refreshLists();
 }//}
+//}
+
+//{ Action that edits a class
+function handleEditClassForm() {
+	if($("#classEdit").valid()) {
+		var code = $("#editClassCode").val().trim();
+		var desc = $("#editClassDesc").val().trim();
+		var target = $("#editClassGoal").val();
+		var pass = $("#editClassPass").val();
+		
+		tblClassUpdate(code, desc, pass, target, editClassSuccess, editClassFail);
+	}
+}
+//{ Edit Class dependences
+function editClassSuccess(tx, result) {
+	$.mobile.changePage("index.html#homeView");
+}
+function editClassFail(tx, result) {
+	alert("There was a problem modifying the class. \nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that deletes a class
+function handleDeleteClassForm() {
+	var result = confirm("You are about to permanently delete this Class along with all it's assignments.\n\nContinue?");
+	if(result) {
+		tblClassDelete(deleteClassSuccess, deleteClassFail);
+	}
+}
+function deleteClassSuccess(tx, result) {
+	$.mobile.changePage("index.html#homeView");
+}
+function deleteClassFail(tx, result) {
+	alert("There was a problem deleting the class. \nERROR MESSAGE: " + result.message);
+}
 //}
 /****************************
  *	 	EVENT BINDINGS		*
