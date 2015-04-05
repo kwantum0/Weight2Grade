@@ -216,7 +216,7 @@
 				</nav>-->
 			</header>
 			<section data-role="content" style="margin:-1px">
-				<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">
+				<ul data-role="listview" class="addToHead" data-split-icon="edit">
 					<li data-icon="false">
 						<a class="ui-link-inherit not-active">
 							<h2>BIO 2040</h2>
@@ -235,16 +235,54 @@
 					</li>
 					<li data-icon="false">
 						<a class="ui-link-inherit not-active">
-							<div class="circle" data-value="0" data-weight="10">
-								<strong></strong>
-							</div>
-							<h2>Quiz 2</h2>
-							<p>Anatomy of vertebrates.</p>
-							<p class="ui-li-aside">April 1st, 2015</p>
+							<h2 style="float:left" id="Name">Quiz 2</h2>
+							<h2 style="float:right"><span class="small">Weight:</span><span id="Weight">10 / 50</span></h2>
 						</a>
 						<a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a>
 					</li>
 				</ul>
+				<div class="ui-body ui-body-a ui-corner-all" id="addSpace2">
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a">
+							<label for="editAssType">Type:</label>
+							<select disabled data-mini="true" name="editAssType" id="editAssType">
+							</select>
+						</div>
+						<div class="ui-block-b">
+							<label for="editAssBonus">Credit:</label>
+							<select disabled name="editAssBonus" id="editAssBonus" data-role="slider">
+								<option value="false">Required</option>
+								<option value="true">Bonus</option>
+							</select>
+						</div>
+					</fieldset>
+					<label for="editAssName">Name:</label>
+					<input readonly="readonly" class="disabled" data-mini="true" type="text" name="editAssName" id="editAssName" value="Test Name" maxlength="30"/>
+					<label for="editAssDesc">Description:</label>
+					<textarea readonly="readonly" class="disabled" data-mini="true" type="text" name="editAssDesc" id="editAssDesc" data-clear-btn="true" maxlength="250">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.</textarea>
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a">
+							<label for="editAssDate">Due Date:</label>
+							<input readonly="readonly" class="disabled" data-mini="true" type="date" name="editAssDate" id="editAssDate" value="" />
+						</div>
+						<div class="ui-block-b">
+							<label for="editAssSubm">Submit Date:</label>
+							<input readonly="readonly" class="disabled" data-mini="true" type="date" name="editAssSubm" id="editAssSubm" value="" />
+						</div>
+					</fieldset>
+					<label for="editAssGrade">Recorded Mark:</label>
+					<input type="range" name="editAssGrade" id="editAssGrade" data-mini="true" value="0" min="0" max="100" data-highlight="true" />
+					<label for="editAssWeight">Weight:</label>
+					<input class="disabled" data-mini="true" data-role="spinbox" type="text" name="editAssWeight" id="editAssWeight" value="10" step="5" min="0" max="1000" />
+					<fieldset class="ui-grid-a" style="margin-top:10px; display:none" id="assCtrlGroup">
+						<div class="ui-block-a">
+							<a type="button" class="ui-btn ui-corner-all ui-mini ui-btn-a ui-btn-active" style="display:block" onclick="handleEditAssForm();">Save</a>
+						</div>
+						<div class="ui-block-b">
+							<a type="button" class="ui-btn ui-corner-all ui-mini ui-btn-b" style="display:block" onclick="handleDeleteAssForm();">Delete</a>
+						</div>
+					</fieldset>
+				</div>
 			</section>
 			<footer data-role="footer" data-position="fixed" data-tap-toggle="false">
 				<form>

@@ -5,6 +5,35 @@
 		Daniel Franz	2015.04.01: created
 
 */
+#assView label {
+	margin-top: 10px;
+}
+#assView div.ui-slider {
+	margin: 0px;
+}
+#assView div.ui-block-a {
+	padding-right: 8px;
+}
+#assView div.ui-block-b {
+	padding-left: 0px;
+}
+#assView div.ui-select.ui-mini,
+#assView div.ui-controlgroup{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#assView div.ui-btn.ui-icon-minus.ui-first-child, 
+#assView div.ui-btn.ui-icon-plus.ui-last-child{
+	pointer-events: none;
+}
+.disabled{
+	color: #333 !important;
+	background-color: #f9f9f9 !important;
+}
+ul.hasBadges.addToHead  > li > a > h3 {
+	margin-left: 30px;
+	margin-top: -17px;
+}
 .small {
 	font-weight: 100;
 	font-size: .85em;
@@ -74,6 +103,10 @@ li {
 #addSpace1 {
 	margin-top: 162px;
 }
+#addSpace2 {
+	margin-top: 137px;
+	padding-top: 10px;
+}
 #editView {
 	max-width:600px; 
 	padding-bottom:2em; 
@@ -89,7 +122,8 @@ div.ui-slider > div.ui-slider-track > div.ui-slider-bg {
 #editClassPass + div > div.ui-slider-bg {
 	background-color: #777777;
 }
-#recordAssGrade + div > div.ui-slider-bg {
+#recordAssGrade + div > div.ui-slider-bg,
+#editAssGrade + div > div.ui-slider-bg {
 	background-color: #5bc0de;
 }
 .circle {

@@ -56,6 +56,7 @@ $(window).on("pagebeforeshow", function() {
 			populateAssList();
 			break;
 		case "#assView":
+			displayAssignment();
 			break;
 		default:
 			$.mobile.changePage("index.html#homeView");
@@ -196,17 +197,18 @@ function classCurry(tx, res) {
 	// get the record and id from the record set
 	var r = res.rows.item(0);
 	var id = r.class_id;
+	// get more class info
 	dbGetClassInfo(id, moreClassInfo(r, buildClassHeader));
 }
 function buildClassHeader(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
-	achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
-	lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
+	var achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
+	var lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
 	achieved = Math.min(achieved, 100);
 	lost = Math.min(lost, 100 - achieved);
 	// build the element
 	var ul = '<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">'
-		   + '<li data-icon="false"><a href="#classView" class="ui-link-inherit" style="pointer-events:none">'
+		   + '<li data-icon="false"><a href="#classView" class="ui-link-inherit not-active">'
 		   + 	'<h2>' + item.class_code + '</h2><p>' + item.class_description + '</p>'
 		   + 	'<p class="ui-li-aside">' + comp.toString() + ' / ' + total.toString() + '</p>'
 		   + '<div class="progress-wrapper">'
@@ -229,7 +231,7 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 		   +			lost
 		   +		'</div>'
 		   +	'</div>'
-		   + '</div><h3 style="margin-left: 30px;"><span class="small">&Sigma; Weight:</span>' + weight + '</h3>'
+		   + '</div><h3><span class="small">&Sigma; Weight:</span>' + weight + '</h3>'
 		   + '</a><a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a></li></ul>';
 	// add the element to the page
 	$("div#classView section").prepend(ul);
@@ -305,7 +307,7 @@ function assListIterate(tx, res) {
 			   +	'<h2>' + r.ass_name + '</h2><p>' + r.ass_description + '</p>'
 			   +	'<p class="ui-li-aside"' + color + '>' + date + '</p>'
 			   +	'<strong><span>&#215;</span>' + r.weight_total + '</strong>'
-			   +	'</a></li>';
+			   + '</a></li>';
 		// place element in the right list
 		if(r.state == "MARK"){
 			$("#markedAssList").append(li);
@@ -346,12 +348,72 @@ function handleDeleteClassForm() {
 		tblClassDelete(deleteClassSuccess, deleteClassFail);
 	}
 }
+//{ Delete class dependences
 function deleteClassSuccess(tx, result) {
 	$.mobile.changePage("index.html#homeView");
 }
 function deleteClassFail(tx, result) {
 	alert("There was a problem deleting the class. \nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that displays an assignment
+function displayAssignment() {
+	//reset the list
+	$('#assView ul.addToHead').empty();
+	// get the assignment item through callback
+	tblAssignmentRead(assignmentCurry);
 }
+//{ Display assignment dependences
+function assignmentCurry(tx, res) {
+	// get the record and class id from the record set
+	var r = res.rows.item(0);
+	var classId = r.class_id;
+	// get class info
+	dbGetClassInfo(classId, moreClassInfo(r, buildAssignmentHeader));
+}
+function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
+	// get class name
+	className = "CLASS test";
+	// convert weight to percentages
+	var achieved 	= (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
+	var lost	 	= (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
+	var itemTotal 	= (weight <= 0 ? 0 : Math.ceil(item.weight_total / weight * 100));
+	var itemAchieved = 0;
+	var itemLost = 0;
+	achieved = Math.min(achieved, 100);
+	lost = Math.min(lost, 100 - achieved);
+	centerBars = '<div style="width: '+ itemTotal +'%" role="progressbar" class="progress-bar progress-bar-warning">'
+			   + itemTotal + '</div>';
+	
+	// current item state
+	var isMarked = item.state == "MARK";
+	if(isMarked){
+		itemAchieved = Math.ceil(itemTotal * item.weight_achieved);
+		itemLost = itemTotal - itemAchieved;
+		achieved -= itemAchieved;
+		lost -= itemLost;
+		centerBars = '<div style="width: '+ itemAchieved +'%" role="progressbar" class="progress-bar progress-bar-info">'
+				   + itemAchieved + '</div>'
+				   + '<div style="float: right; width: '+ itemLost +'%" role="progressbar" class="progress-bar progress-bar-alert">'
+				   + itemLost + '</div>'
+	}
+	
+	var li1	= '<li data-icon="false"><a class="ui-link-inherit not-active">'
+			+ '<h2>' + className + '</h2>'
+			+ '<div class="progress" data-total-weight="100" id="bar">'
+			+ '<div style="width: '+ achieved +'%" role="progressbar" class="progress-bar progress-bar-default">'
+			+ 	achieved
+			+ '</div>'
+			+ '<div id="fail" style="float: right; width: '+ lost +'%" role="progressbar" class="progress-bar progress-bar-danger ">'
+			+	lost
+			+ '</div>'
+			+ centerBars
+			+ '</div></a></li>';
+	$("#assView ul.addToHead").append(li1);
+	refreshLists();
+	
+}//}
 //}
 /****************************
  *	 	EVENT BINDINGS		*
