@@ -220,17 +220,7 @@
 					<li data-icon="false">
 						<a class="ui-link-inherit not-active">
 							<h2>BIO 2040</h2>
-							<p> Introduction to animal anatomy. </p>
-							<p class="ui-li-aside">3 / 6</p>
 							<div class="progress" data-total-weight="100" id="bar">
-								<div class="badge-box" style="padding-left: 0px">
-									<div class="carat-up"></div>
-									<span class="badge">55</span>
-								</div>
-								<div class="badge-box" style="padding-left: 0px">
-									<div class="carat-up carat-up-success"></div>
-									<span class="badge badge-success" >75</span>
-								</div>
 								<div style="width: 35%" role="progressbar" class="progress-bar progress-bar-default">
 									35
 								</div>
@@ -256,6 +246,46 @@
 					</li>
 				</ul>
 			</section>
+			<footer data-role="footer" data-position="fixed" data-tap-toggle="false">
+				<form>
+					<fieldset class="ui-grid-a">
+						<div class="ui-block-a">
+							<a href="#submitView" data-rel="popup" data-position-to="window" data-transition="pop" type="button" class="ui-btn ui-corner-all ui-mini ui-btn-a" style="display:block">Submit</a>
+						</div>
+						<div class="ui-block-b">
+							<a href="#recordView" data-rel="popup" data-position-to="window" data-transition="pop" type="button" class="ui-btn ui-corner-all ui-mini ui-btn-a" style="display:block">Record</a>
+						</div>
+					</fieldset>
+				</form>
+			</footer>
+
+<!-- SUBMIT ASS POPUP -->
+			<div data-role="popup" id="submitView" data-theme="a" data-overlay-theme="b" class="ui-corner-all">
+				<div style="width:400px"></div>
+				<form id="assSubmit" data-ajax="false" style="padding:10px 20px">
+					<h3>Submit Assignment</h3>
+					<label for="submitAssDate">Date Handed In:</label>
+					<input data-mini="true" type="date" name="submitAssDate" id="submitAssDate" value="" />
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding-top:20px">
+						<a type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active" onclick="handleSubmitAssForm();">Submit</a>
+						<a type="button" data-rel="back" class="ui-btn ui-corner-all ui-btn-a">Cancel</a>
+					</fieldset>
+				</form>
+			</div><!-- end popup -->
+
+<!-- RECORD ASS POPUP -->
+			<div data-role="popup" id="recordView" data-theme="a" data-overlay-theme="b" class="ui-corner-all">
+				<div style="width:400px"></div>
+				<form id="assRecord" data-ajax="false" style="padding:10px 20px">
+					<h3>Record Assignment Grade</h3>
+					<label for="recordAssGrade">Received Mark:</label>
+					<input type="range" name="recordAssGrade" id="recordAssGrade" data-mini="true" value="55" min="0" max="100" data-highlight="true" />
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="padding-top:20px">
+						<a type="button" class="ui-btn ui-corner-all ui-btn-a ui-btn-active" onclick="handleRecordAssForm();">Record</a>
+						<a type="button" data-rel="back" class="ui-btn ui-corner-all ui-btn-a">Cancel</a>
+					</fieldset>
+				</form>
+			</div><!-- end popup -->
 		</div>
 	</body>
 </html>

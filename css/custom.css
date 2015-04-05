@@ -89,6 +89,9 @@ div.ui-slider > div.ui-slider-track > div.ui-slider-bg {
 #editClassPass + div > div.ui-slider-bg {
 	background-color: #777777;
 }
+#recordAssGrade + div > div.ui-slider-bg {
+	background-color: #5bc0de;
+}
 .circle {
 	height: 80px;
 	float:left; 

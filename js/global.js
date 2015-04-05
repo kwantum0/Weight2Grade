@@ -132,7 +132,7 @@ function classListIterate(tx, res) {
 function buildClassListItem(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
 	achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
-	lost	 = (lost <= 0 ? 0 : Math.floor(lost / weight * 100));
+	lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
 	// build the element
 	var li = '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ');">'
 		   + 	'<h2>' + item.class_code + '</h2><p>' + item.class_description + '</p>'
@@ -201,7 +201,9 @@ function classCurry(tx, res) {
 function buildClassHeader(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
 	achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
-	lost	 = (lost <= 0 ? 0 : Math.floor(lost / weight * 100));
+	lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
+	achieved = Math.min(achieved, 100);
+	lost = Math.min(lost, 100 - achieved);
 	// build the element
 	var ul = '<ul data-role="listview" class="hasBadges addToHead" data-split-icon="edit">'
 		   + '<li data-icon="false"><a href="#classView" class="ui-link-inherit" style="pointer-events:none">'
@@ -220,14 +222,14 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 		   + 		'<div style=" width: '+ achieved +'%" role="progressbar" class="progress-bar progress-bar-default">'
 		   + 			achieved 
 		   +		'</div>'
-		   +		'<div style="width: 0%; display: none" role="progressbar" class="progress-bar progress-bar-warning hoverGrade">'
+		   +		'<div style="height:20px;margin-left:' + achieved + '%;position:absolute;width: 0%; display: none" role="progressbar" class="progress-bar progress-bar-warning hoverGrade">'
 		   +			0
 		   +		'</div>'
 		   +		'<div style="float: right; width: '+ lost +'%" role="progressbar" class="progress-bar progress-bar-danger">'
 		   +			lost
 		   +		'</div>'
 		   +	'</div>'
-		   + '</div><h3><span class="small">Total Weight:</span>' + weight + '</h3>'
+		   + '</div><h3 style="margin-left: 30px;"><span class="small">&Sigma; Weight:</span>' + weight + '</h3>'
 		   + '</a><a href="#editView" data-rel="popup" data-position-to="window" data-transition="pop">Edit Class</a></li></ul>';
 	// add the element to the page
 	$("div#classView section").prepend(ul);
@@ -238,6 +240,7 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 	$("#editClassDesc").val(item.class_description);
 	$("#editClassGoal").val(item.target_grade);
 	$("#editClassPass").val(item.pass_grade);
+	$('#editClassGoal, #editClassPass').slider("refresh");
 	
 }//}
 //}
@@ -285,13 +288,22 @@ function assListIterate(tx, res) {
 		var r = rs.item(i);
 		var weight = parseFloat(r.weight_achieved);
 		weight = isNaN(weight) ? 0 : weight;
+		// build the date string
+		var isOut = r.state == 'OUTS';
+		var dateDue = new Date(r.date_due);
+		dateDue = new Date(dateDue.getTimezoneOffset()*60000 + dateDue.getTime());
+		var dateSub = new Date(r.date_submitted);
+		dateSub = new Date(dateSub.getTimezoneOffset()*60000 + dateSub.getTime());
+		var onTime = dateDue.getTime() >= dateSub.getTime();
+		var date = isOut ? dateDue.toDateString() : dateSub.toDateString();
+		var color = onTime ? 'style="color:#808080;text-shadow:1px 1px 0px #fff"' : 'style="color:#A55956;text-shadow:1px 1px 0px #fff"';
 		// build the element
 		var li = '<li><a href="#assView" class="ui-link-inherit" onclick="setAssId(' + r.ass_id + ');">'
 			   + 	'<div class="circle" data-value="' + weight + '" data-weight="' + r.weight_total + '">'
 			   +		'<strong></strong>'
 			   +	'</div>'
 			   +	'<h2>' + r.ass_name + '</h2><p>' + r.ass_description + '</p>'
-			   +	'<p class="ui-li-aside">' + r.date_due + '</p>'
+			   +	'<p class="ui-li-aside"' + color + '>' + date + '</p>'
 			   +	'<strong><span>&#215;</span>' + r.weight_total + '</strong>'
 			   +	'</a></li>';
 		// place element in the right list

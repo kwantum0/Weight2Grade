@@ -82,7 +82,7 @@ function pumpCircle(circle){
 	$(".hoverGrade").show();
 	var weight = parseInt($(circle).attr('data-weight'));
 	var total = parseInt($("#bar").attr('data-total-weight'));
-	var percent = Math.floor(weight / total * 100);
+	var percent = Math.ceil(weight / total * 100);
 	$(".hoverGrade").width(percent.toString() + "%");
 	$(circle).circleProgress({
 		value: 1,

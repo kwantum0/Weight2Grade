@@ -182,9 +182,9 @@ function tblAssignmentSetMarked(id, achieved, onSuccess, onFail) {
 function dbGetClassInfo(classId, callbackFunc) { //read
 	var sql = "SELECT state,"
 			+ " count(*) AS Ass_Count,"
-			+ " total(weight_total) AS Total_Weight,"
+			+ " total(CASE WHEN is_bonus = 'true' THEN 0 ELSE weight_total END) AS Total_Weight,"
 			+ " total(weight_total * weight_achieved) AS Achieved_Weight,"
-			+ " total(CASE WHEN is_bonus THEN 0 ELSE (1 - weight_achieved) * weight_total END) AS Lost_Weight"
+			+ " total(CASE WHEN is_bonus = 'true' THEN 0 ELSE (1 - weight_achieved) * weight_total END) AS Lost_Weight"
 			+ " FROM tblAssignment"
 			+ " WHERE class_id = ?"
 			+ " GROUP BY state;";
