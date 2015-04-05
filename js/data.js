@@ -140,12 +140,13 @@ function tblAssignmentUpdate(type, name, desc, due, submit, weight, achieved, bo
 	var assId = localStorage.getItem("assignmentID");
 	var sql = "UPDATE tblAssignment SET type_name = ?, ass_name = ?,"
 			+ " ass_description = ?, date_due = ?, date_submitted = ?, weight_total = ?,"
-			+ " weight_achieved = ?, is_bonus = ?, state = ? WHERE ass_id = ?;";
+			+ " weight_achieved = ?, is_bonus = ? WHERE ass_id = ?;";
 	db.transaction(function(tx) {
-		tx.executeSql(sql, [type, name, desc, due, submit, weight, achieved, bonus, state, assId], onSuccess, onFail);
+		tx.executeSql(sql, [type, name, desc, due, submit, weight, achieved, bonus, assId], onSuccess, onFail);
 	});
 } 
-function tblAssignmentDelete(id, onSuccess, onFail) {
+function tblAssignmentDelete(onSuccess, onFail) {
+	var id = localStorage.getItem("assignmentID");
 	db.transaction(function(tx) {
 		tx.executeSql("DELETE FROM tblAssignment WHERE ass_id = ?;", [id], onSuccess, onFail);
 	});
@@ -162,13 +163,15 @@ function tblAssignmentRead(callbackFunc) { //read
 		tx.executeSql("SELECT * FROM tblAssignment WHERE ass_id = ?;", [id], callbackFunc, fail);
 	});
 }
-function tblAssignmentSetCompleted(id, submit, onSuccess, onFail) {
+function tblAssignmentSetCompleted(submit, onSuccess, onFail) {
+	var id = localStorage.getItem("assignmentID");
 	var sql = "UPDATE tblAssignment SET date_submitted = ?, state = ? WHERE ass_id = ?;";
 	db.transaction(function(tx) {
 		tx.executeSql(sql, [submit, "COMP", id], onSuccess, onFail);
 	});
 }
-function tblAssignmentSetMarked(id, achieved, onSuccess, onFail) {
+function tblAssignmentSetMarked(achieved, onSuccess, onFail) {
+	var id = localStorage.getItem("assignmentID");
 	var sql = "UPDATE tblAssignment SET weight_achieved = ?, state = ? WHERE ass_id = ?;";
 	db.transaction(function(tx) {
 		tx.executeSql(sql, [achieved, "MARK", id], onSuccess, onFail);

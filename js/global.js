@@ -52,8 +52,6 @@ $(window).on("pagebeforeshow", function() {
 			break;
 		case "#classView":
 			displayClass();
-			populateTypeList('other');
-			populateAssList();
 			break;
 		case "#assView":
 			displayAssignment();
@@ -199,6 +197,10 @@ function displayClass() {
 	$('.hasBadges.addToHead').remove();
 	// get the class item through callback
 	tblClassRead(classCurry);
+	// populate type list
+	populateTypeList('other');
+	// populate the task list
+	populateAssList();
 }
 //{ Display Class dependences
 function classCurry(tx, res) {
@@ -306,7 +308,7 @@ function assListIterate(tx, res) {
 		dateSub = new Date(dateSub.getTimezoneOffset()*60000 + dateSub.getTime());
 		var onTime = dateDue.getTime() >= dateSub.getTime();
 		var date = isOut ? dateDue.toDateString() : dateSub.toDateString();
-		var color = onTime ? 'style="color:#808080;text-shadow:1px 1px 0px #fff"' : 'style="color:#A55956;text-shadow:1px 1px 0px #fff"';
+		var color = onTime ? 'style="color:#606060;text-shadow:1px 1px 0px #fff"' : 'style="color:#b65455;text-shadow:1px 1px 0px #fff"';
 		// build the element
 		var li = '<li><a href="#assView" class="ui-link-inherit" onclick="setAssId(' + r.ass_id + ');">'
 			   + 	'<div class="circle" data-value="' + weight + '" data-weight="' + r.weight_total + '">'
@@ -351,7 +353,7 @@ function editClassFail(tx, result) {
 
 //{ Action that deletes a class
 function handleDeleteClassForm() {
-	var result = confirm("You are about to permanently delete this Class along with all it's assignments.\n\nContinue?");
+	var result = confirm("You are about to permanently delete this Class along with all its Tasks.\n\nContinue?");
 	if(result) {
 		tblClassDelete(deleteClassSuccess, deleteClassFail);
 	}
@@ -466,12 +468,86 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	
 }//}
 //}
+
+//{ Action that changes an assignment's state to COMP
+function handleSubmitAssForm() {
+	if($("#assSubmit").valid()) {
+		var date = $("#submitAssDate").val();
+		
+		tblAssignmentSetCompleted(date, submitAssSuccess, submitAssFail);
+	}
+}
+//{ Sumbit ass dependences
+function submitAssSuccess(tx, res) {
+	displayAssignment();
+}
+function submitAssFail(tx, res) {
+	alert("There was a problem setting the task's submitted date. \nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that changes an assignment's state to MARK
+function handleRecordAssForm() {
+	if($("#assRecord").valid()) {
+		var mark = parseFloat($("#recordAssGrade").val()) / 100;
+		
+		tblAssignmentSetMarked(mark, recordAssSuccess, recordAssFail);
+	}
+}
+//{ Record ass dependences
+function recordAssSuccess(){
+	displayAssignment();
+}
+function recordAssFail() {
+	alert("There was a problem recording the task's mark. \nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that deletes an assignment
+function handleDeleteAssForm() {
+	var result = confirm("You are about to permanently delete this Task.\n\nContinue?");
+	if(result) {
+		tblAssignmentDelete(deleteAssSuccess, deleteAssFail);
+	}
+}
+//{ Delete ass dependences
+function deleteAssSuccess() {
+	$.mobile.changePage("index.html#classView");
+}
+function deleteAssFail() {
+	alert("There was a problem delete the task. \nERROR MESSAGE: " + result.message);
+}//}
+//}
+
+//{ Action that edits an assignment
+function handleEditAssForm() {
+	if($("#assEdit").valid()) {
+		var type = $("#editAssType").val();
+		var name = $("#editAssName").val().trim();
+		var desc = $("#editAssDesc").val().trim();
+		var bonus = $("#editAssBonus").val() === 'true';
+		var due = $("#editAssDate").val();
+		var weight = $("#editAssWeight").val();
+		var mark = parseFloat($("#editAssGrade").val()) / 100;
+		var submit = $("#editAssSubm").val();
+		
+		tblAssignmentUpdate(type, name, desc, due, submit, weight, mark, bonus, editAssSuccess, editAssFail)
+	}
+}
+//{ Edit ass dependences
+function editAssSuccess() {
+	displayAssignment();
+}
+function editAssFail() {
+	alert("There was a problem modifying the task. \nERROR MESSAGE: " + result.message);
+}//}
+//}
 /****************************
  *	 	EVENT BINDINGS		*
  ****************************/
 
 //{ Clear Data Event
-$("#resetData").on( "click", function() {
+$(".resetData").on( "click", function() {
 	var result = confirm("You are about to reset all your Weight2Grade data." 
 						 + "There is no way to undo this change.\n\nContinue?");
 	if(result){

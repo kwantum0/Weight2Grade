@@ -294,6 +294,65 @@ function refreshValidation() {
 			editClassPass: "Pass Grade is a percent between 0 and 100."
 		}
 	});//}
+	//{ Sets up the Submit Assignment Form validation
+	$("#assSubmit").validate({
+		errorPlacement: function(error, element) {
+			$(element).parent("div").after(error);
+		},
+		rules: {
+			submitAssDate: {
+				required: true,
+				date: true
+			}
+		},
+		messages: {
+			submitAssDate: "Date Handed In is required."
+		}
+	});//}
+	//{ Sets up the Record Assignment Form validation
+	$("#assRecord").validate({
+		errorPlacement: function(error, element) {
+			$(element).parent("div").after(error);
+		},
+		rules: {
+			recordAssGrade: {
+				required: true,
+				range: [0,100]
+			}
+		},
+		messages: {
+			recordAssGrade: "Recieved Mark is a percent between 0 and 100."
+		}
+	});//}
+	//{ Sets up the Edit Assignment Form validation
+	$("#assEdit").validate({
+		errorPlacement: function(error, element) {
+			error.appendTo(element.closest("li"));
+		},
+		rules: {
+			editAssName: {
+				required: true,
+				rangelength: [2,30]
+			},
+			editAssDesc: {
+				rangelength: [0,250]
+			},
+			editAssDate: {
+				required: true,
+				date: true
+			},
+			editAssWeight: {
+				required: true,
+				range: [0,1000]
+			}
+		},
+		messages: {
+			addAssName: "Name must be between 2 and 30 characters long.",
+			addAssDesc: "Description must be less than 250 characters long.",
+			addAssDate: "Due Date is required.",
+			addAssWeight: "Weight must be whole number between 1 and 1,000."
+		}
+	});//}
 }
 
 
