@@ -5,6 +5,9 @@
 		Daniel Franz	2015.04.01: created
 
 */
+#assView div.progress-wrapper {
+	height: 20px;
+}
 input[data-role="spinbox"] {
 	background-color: #fff;
 	width: 45px !important;

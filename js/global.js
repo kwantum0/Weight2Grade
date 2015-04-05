@@ -393,9 +393,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	var itemLost = 0;
 	achieved = Math.min(achieved, 100);
 	lost = Math.min(lost, 100 - achieved);
-	centerBars = '<div style="width: '+ itemTotal +'%" role="progressbar" class="progress-bar progress-bar-warning">'
-			   + itemTotal + '</div>';
-	
+
 	// current item state
 	var isMarked = item.state.trim() == "MARK";
 	var isComplete = item.state.trim() == "COMP";
@@ -414,12 +412,14 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	}
 	
 	// set middle bars in class item
+	var centerBars = '<div style="height:20px;margin-left:' + achieved + '%;position:absolute;width: '+ itemTotal +'%" role="progressbar" class="progress-bar progress-bar-warning">'
+			   + itemTotal + '</div>';
 	if(isMarked){
 		itemAchieved = Math.ceil(itemTotal * item.weight_achieved);
 		itemLost = itemTotal - itemAchieved;
 		achieved -= itemAchieved;
 		lost -= itemLost;
-		centerBars = '<div style="width: '+ itemAchieved +'%" role="progressbar" class="progress-bar progress-bar-info">'
+		centerBars = '<div style="height:20px;margin-left:' + achieved + '%;position:absolute;width: '+ itemAchieved +'%" role="progressbar" class="progress-bar progress-bar-info">'
 				   + itemAchieved + '</div>'
 				   + '<div style="float: right; width: '+ itemLost +'%" role="progressbar" class="progress-bar progress-bar-alert">'
 				   + itemLost + '</div>'
@@ -428,14 +428,14 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	// create class item
 	var li1	= '<li data-icon="false"><a class="ui-link-inherit not-active">'
 			+ '<h2>' + className + '</h2>'
-			+ '<div class="progress" data-total-weight="100" id="bar">'
-			+ '<div style="width: '+ achieved +'%" role="progressbar" class="progress-bar progress-bar-default">'
-			+ 	achieved
-			+ '</div>'
-			+ '<div id="fail" style="float: right; width: '+ lost +'%" role="progressbar" class="progress-bar progress-bar-danger ">'
-			+	lost
-			+ '</div>'
-			+ centerBars
+			+ '<div class="progress-wrapper">'
+			+ 	'<div class="progress" data-total-weight="100" id="bar">'
+			+ 	'<div style="width: '+ achieved +'%" role="progressbar" class="progress-bar progress-bar-default">'
+			+ 		achieved
+			+ 	'</div>'
+			+ 	'<div id="fail" style="float: right; width: '+ lost +'%" role="progressbar" class="progress-bar progress-bar-danger ">'
+			+		lost
+			+	 '</div>' + centerBars + '</div>'
 			+ '</div></a></li>';
 	// append class item
 	$("#assView ul.addToHead").append(li1);
@@ -462,6 +462,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	$("#editAssGrade").val(Math.ceil(item.weight_achieved * 100));
 	$("#editAssGrade").slider("refresh");
 	$("#editAssWeight").val(item.weight_total);
+	$("#editAssWeight").spinbox();
 	
 	// toggle form off
 	toggleEditForm(true);
@@ -480,6 +481,7 @@ function handleSubmitAssForm() {
 //{ Sumbit ass dependences
 function submitAssSuccess(tx, res) {
 	displayAssignment();
+	$( "#submitView" ).popup( "close" )
 }
 function submitAssFail(tx, res) {
 	alert("There was a problem setting the task's submitted date. \nERROR MESSAGE: " + result.message);
@@ -497,6 +499,7 @@ function handleRecordAssForm() {
 //{ Record ass dependences
 function recordAssSuccess(){
 	displayAssignment();
+	$( "#recordView" ).popup( "close" )
 }
 function recordAssFail() {
 	alert("There was a problem recording the task's mark. \nERROR MESSAGE: " + result.message);
