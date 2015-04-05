@@ -464,6 +464,16 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	$("#editAssWeight").val(item.weight_total);
 	$("#editAssWeight").spinbox();
 	
+	// set the late label
+	var due = (new Date(item.date_due)).getTime();
+	var compare = item.state == "OUTS" ? Date.now() : new Date((item.date_submitted)).getTime();
+	if(due < compare){
+		$("#isLate").show()
+	}
+	else {
+		$("#isLate").hide()
+	}
+	
 	// toggle form off
 	toggleEditForm(true);
 	
