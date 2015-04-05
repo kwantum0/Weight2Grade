@@ -52,7 +52,7 @@ $(window).on("pagebeforeshow", function() {
 			break;
 		case "#classView":
 			displayClass();
-			populateTypeList();
+			populateTypeList('other');
 			populateAssList();
 			break;
 		case "#assView":
@@ -92,23 +92,31 @@ function moreClassInfo(item, fn) {
 }//}
 
 //{ Action that populates the select dropdown
-function populateTypeList() {
+function populateTypeList(str) {
 	// reset the type list
-	$('#addAssType').empty();
+	$('.AssType').empty();
 	// iterate over each item in callback
-	tblTypeList(typeListIterate);
+	tblTypeList(typeListIterate(typeFormat(str)));
 }
 // { Populate Type List dependences
-function typeListIterate(tx, res) {
-	var rs = res.rows;
-	for(var i = 0; i < rs.length; i++){
-		var name = rs.item(i).type_name;
-		var opt = '<option value="' + name + '" ' 
-				+ (i == 0 ? 'selected' : '') + '>' 
-				+ name + '</option>';
-		$('#addAssType').append(opt);
+function typeListIterate(str) {
+	return function(tx, res) {
+		var rs = res.rows;
+		for(var i = 0; i < rs.length; i++){
+			var name = rs.item(i).type_name;
+			var opt = '<option value="' + name + '" ' 
+					+ (name == str ? 'selected' : '') + '>' 
+					+ name + '</option>';
+			$('#addAssType').append(opt);
+			$('#editAssType').append(opt);
+		}
+		if($('#addAssType').length){
+			$('#addAssType').selectmenu().selectmenu( "refresh" );
+		}
+		if($('#editAssType').length){
+			$('#editAssType').selectmenu().selectmenu( "refresh" );
+		}
 	}
-	$('#addAssType').selectmenu( "refresh" );
 }//}
 //}	
 	
@@ -135,7 +143,7 @@ function buildClassListItem(item, total, weight, achieved, lost, comp){
 	achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
 	lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
 	// build the element
-	var li = '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ');">'
+	var li = '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ',\'' + item.class_code +'\');">'
 		   + 	'<h2>' + item.class_code + '</h2><p>' + item.class_description + '</p>'
 		   + 	'<p class="ui-li-aside">' + comp.toString() + ' / ' + total.toString() + '</p>'
 		   + '<div class="progress-wrapper">'
@@ -374,7 +382,7 @@ function assignmentCurry(tx, res) {
 }
 function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	// get class name
-	className = "CLASS test";
+	className = localStorage.getItem("className");
 	// convert weight to percentages
 	var achieved 	= (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
 	var lost	 	= (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
@@ -387,7 +395,23 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 			   + itemTotal + '</div>';
 	
 	// current item state
-	var isMarked = item.state == "MARK";
+	var isMarked = item.state.trim() == "MARK";
+	var isComplete = item.state.trim() == "COMP";
+	
+	// set footer actions
+	if(isMarked){
+		$("#submit, #record").addClass('ui-state-disabled');
+	}
+	else if(isComplete){
+		$("#record").removeClass('ui-state-disabled');
+		$("#submit").addClass('ui-state-disabled');
+	}
+	else{
+		$("#submit").removeClass('ui-state-disabled');
+		$("#record").addClass('ui-state-disabled');
+	}
+	
+	// set middle bars in class item
 	if(isMarked){
 		itemAchieved = Math.ceil(itemTotal * item.weight_achieved);
 		itemLost = itemTotal - itemAchieved;
@@ -399,6 +423,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 				   + itemLost + '</div>'
 	}
 	
+	// create class item
 	var li1	= '<li data-icon="false"><a class="ui-link-inherit not-active">'
 			+ '<h2>' + className + '</h2>'
 			+ '<div class="progress" data-total-weight="100" id="bar">'
@@ -410,8 +435,34 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 			+ '</div>'
 			+ centerBars
 			+ '</div></a></li>';
+	// append class item
 	$("#assView ul.addToHead").append(li1);
+	
+	// create assignment item
+	var li2 = '<li data-icon="false"><a class="ui-link-inherit not-active">'
+			+ 	'<h2 style="float:left" id="Name">' + item.ass_name + '</h2>'
+			+	'<h2 style="float:right"><span class="small">Weight:</span><span id="Weight">'+ item.weight_total +' / '+ weight +'</span></h2>'
+			+	'</a><a id="editTaskBtn" onclick="toggleEditForm(false);return false">Edit Task</a>'
+			+ '</li>';
+	// append assignment item and refresh list
+	$("#assView ul.addToHead").append(li2);
 	refreshLists();
+	
+	// set the edit form values
+	populateTypeList(item.type_name);
+	$("#state").val(item.state);
+	$("#editAssBonus").val(item.is_bonus);
+	$("#editAssBonus").slider("refresh");
+	$("#editAssName").val(item.ass_name);
+	$("#editAssDesc").val(item.ass_description);
+	$("#editAssDate").val(item.date_due);
+	$("#editAssSubm").val(item.date_submitted);
+	$("#editAssGrade").val(Math.ceil(item.weight_achieved * 100));
+	$("#editAssGrade").slider("refresh");
+	$("#editAssWeight").val(item.weight_total);
+	
+	// toggle form off
+	toggleEditForm(true);
 	
 }//}
 //}

@@ -43,6 +43,59 @@ function toggleTaskForm() {
 	}
 }//}
 
+//{ Toggle the Edit Task Form 
+function toggleEditForm(close) {
+	if(close) {
+		$("#assCtrlGroup").toggle(false);
+		$("#assView footer").toggle(true);
+	}
+	else {
+		$("#assCtrlGroup").toggle("fast");
+		$("#assView footer").toggle("fast");
+	}
+	
+	var state = $("#state").val().trim();
+	var str = $("#editTaskBtn").prop('title').trim();
+	if(str == "Edit Task" && !close)
+	{
+		$("#editTaskBtn").prop('title', 'Cancel')
+						.addClass("ui-state-persist")
+						.addClass("ui-btn-active");
+						
+		$("#editAssName, #editAssDesc, #editAssDate, #editAssWeight").removeClass('disabled');
+		$("#editAssName, #editAssDesc, #editAssDate, #editAssWeight").removeAttr('readonly');
+		if(state == "MARK")
+		{
+			$("#editAssGrade, #editAssSubm").removeClass('disabled');
+			$("#editAssGrade, #editAssSubm").removeAttr('readonly');
+			$("#assEdit div.ui-slider-track").css('pointer-events', 'auto');
+		}
+		else if(state == "COMP")
+		{
+			$("#editAssSubm").removeClass('disabled');
+			$("#editAssSubm").removeAttr('readonly');
+		}
+		$("#assEdit div.ui-slider.ui-slider-switch," +
+		  "#assEdit div.ui-select.ui-mini," +
+		  "#assEdit div.ui-btn.ui-icon-minus.ui-first-child," +
+		  "#assEdit div.ui-btn.ui-icon-plus.ui-last-child").css('pointer-events','auto');
+	}
+	else
+	{
+		$("#editTaskBtn").prop('title', 'Edit Task')
+						.removeClass("ui-state-persist")
+						.removeClass("ui-btn-active");
+						
+		$("#assEdit input, #assEdit textarea").addClass('disabled');
+		$("#assEdit input, #assEdit textarea").attr('readonly', 'readonly');
+		$("#assEdit div.ui-slider-track:not(.ignore)," +
+		  "#assEdit div.ui-slider.ui-slider-switch," +
+		  "#assEdit div.ui-select.ui-mini," +
+		  "#assEdit div.ui-btn.ui-icon-minus.ui-first-child," +
+		  "#assEdit div.ui-btn.ui-icon-plus.ui-last-child").css('pointer-events','none');
+	}	
+}//}
+
 //{ Moves the badges to their proper location 
 function resetBadges(event, ui) {
 	$(".badge-box").each(function(index){
@@ -110,6 +163,7 @@ function deflateCircle(circle){
 
 //{ Capitalizes only first letter of a string for TYPE NAME
 function typeFormat(str){
+	str = str.trim();
 	return str.substring(0,1).toUpperCase() + str.substring(1,str.length).toLowerCase();
 }//}
 
@@ -125,8 +179,9 @@ function sanitize(str, code){
 }//}
 
 //{ Sets the classId session variable
-function setClassId(id) {
+function setClassId(id, name) {
 	localStorage.setItem("classID", id);
+	localStorage.setItem("className", name);
 }//}
 
 //{ Sets the assignmnetId session variable

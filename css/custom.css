@@ -5,30 +5,38 @@
 		Daniel Franz	2015.04.01: created
 
 */
-#assView label {
+input[data-role="spinbox"] {
+	background-color: #fff;
+	width: 45px !important;
+	height: 31px !important;
+}
+#assEdit label {
 	margin-top: 10px;
 }
-#assView div.ui-slider {
+#assEdit div.ui-slider {
 	margin: 0px;
 }
-#assView div.ui-block-a {
+#assEdit div.ui-block-a {
 	padding-right: 8px;
 }
-#assView div.ui-block-b {
+#assEdit div.ui-block-b {
 	padding-left: 0px;
 }
-#assView div.ui-select.ui-mini,
-#assView div.ui-controlgroup{
+#assEdit div.ui-select.ui-mini,
+#assEdit div.ui-controlgroup{
 	margin-left: 0px;
 	margin-right: 0px;
 }
-#assView div.ui-btn.ui-icon-minus.ui-first-child, 
-#assView div.ui-btn.ui-icon-plus.ui-last-child{
+#assEdit div.ui-slider-track,
+#assEdit div.ui-slider.ui-slider-switch,
+#assEdit div.ui-select.ui-mini,
+#assEdit div.ui-btn.ui-icon-minus.ui-first-child, 
+#assEdit div.ui-btn.ui-icon-plus.ui-last-child{
 	pointer-events: none;
 }
 .disabled{
 	color: #333 !important;
-	background-color: #f9f9f9 !important;
+	background-color: #e9e9e9 !important;
 }
 ul.hasBadges.addToHead  > li > a > h3 {
 	margin-left: 30px;
@@ -38,10 +46,6 @@ ul.hasBadges.addToHead  > li > a > h3 {
 	font-weight: 100;
 	font-size: .85em;
 	padding-right: .5em;
-}
-input#addAssWeight {
-	width: 45px !important;
-	background-color: #fff;
 }
 label.error {
 	font-size: .75em;
