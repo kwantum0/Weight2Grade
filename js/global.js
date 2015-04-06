@@ -476,8 +476,11 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	$("#editAssDesc").val(item.ass_description);
 	$("#editAssDate").val(item.date_due);
 	$("#editAssSubm").val(item.date_submitted);
+	$("#submitAssDate").val(getTodayDate());
 	$("#editAssGrade").val(Math.ceil(item.weight_achieved * 100));
 	$("#editAssGrade").slider("refresh");
+	$("#recordAssGrade").val(55);
+	$("#recordAssGrade").slider("refresh");
 	$("#editAssWeight").val(item.weight_total);
 	
 	// set the late label
