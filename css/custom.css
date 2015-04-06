@@ -102,15 +102,16 @@ li {
 	cursor: default;
 }
 .addToHead {
+	top: 58px;
 	position:fixed; 
 	width:100%;
-	z-index: 10;
+	z-index: 100;
 }
 #addSpace1 {
-	margin-top: 162px;
+	margin-top: 138px;
 }
 #addSpace2 {
-	margin-top: 137px;
+	margin-top: 138px;
 	padding-top: 10px;
 }
 #editView {
