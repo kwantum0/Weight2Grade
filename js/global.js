@@ -8,7 +8,9 @@
 /****************************
  *		DOCUMENT READY		*
  ****************************/
-$(document).ready(function() {	
+$(document).ready(function() {
+	// turn off all animations
+	jQuery.fx.off = true;
 	//{ DATABASE
 	// check if setup is complete
 	var setup_complete = localStorage.getItem("setup");
@@ -281,10 +283,10 @@ function handleAddAssForm() {
 //{ Add Ass dependences
 function addAssSuccess(tx, result) {
 	var id = result.rows.item(0).id;
-	setAssId(id);
 	$('#assAdd').trigger("reset");
 	toggleTaskForm(true);
-	$.mobile.changePage("index.html#assView");
+	displayClass();
+	$('#showOnAdd').collapsible("expand");
 }
 function addAssFail(tx, result) {
 	alert("There was a problem adding the assignment.\nERROR MESSAGE: " + result.message);
