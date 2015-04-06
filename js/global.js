@@ -135,13 +135,20 @@ function classListIterate(tx, res) {
 		// get more class information through callback
 		dbGetClassInfo(id, moreClassInfo(r, buildClassListItem));
 	}
+	if(rs.length <= 0){
+		toggleAddForm(true);
+		toggleAddForm(false);
+	}
+	else {
+		toggleAddForm(true);
+	}
 }
 function buildClassListItem(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
 	achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
 	lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
 	// build the element
-	var li = '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ',\'' + item.class_code +'\');">'
+	var li = '<li data-icon="false"><a href="#classView" class="ui-link-inherit" onclick="setClassId(' + item.class_id + ');setClassName(\'' + item.class_code +'\');">'
 		   + 	'<h2>' + item.class_code + '</h2><p>' + item.class_description + '</p>'
 		   + 	'<p class="ui-li-aside">' + comp.toString() + ' / ' + total.toString() + '</p>'
 		   + '<div class="progress-wrapper">'
@@ -184,7 +191,7 @@ function addClassSuccess(tx, result) {
 	setClassId(id);
 	$.mobile.changePage("#classView");
 	$('#classAdd').trigger("reset");
-	toggleAddForm();
+	toggleAddForm(true);
 }
 function addClassFail(tx, result) {
 	alert("There was a problem adding the class.\nERROR MESSAGE: " + result.message);
@@ -211,6 +218,8 @@ function classCurry(tx, res) {
 	dbGetClassInfo(id, moreClassInfo(r, buildClassHeader));
 }
 function buildClassHeader(item, total, weight, achieved, lost, comp){
+	setClassId(item.class_id);
+	setClassName(item.class_code);
 	// convert weight to percentages
 	var achieved = (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
 	var lost	 = (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
@@ -253,7 +262,6 @@ function buildClassHeader(item, total, weight, achieved, lost, comp){
 	$("#editClassGoal").val(item.target_grade);
 	$("#editClassPass").val(item.pass_grade);
 	$('#editClassGoal, #editClassPass').slider("refresh");
-	
 }//}
 //}
 
@@ -275,7 +283,7 @@ function addAssSuccess(tx, result) {
 	var id = result.rows.item(0).id;
 	setAssId(id);
 	$('#assAdd').trigger("reset");
-	toggleTaskForm();
+	toggleTaskForm(true);
 	$.mobile.changePage("index.html#assView");
 }
 function addAssFail(tx, result) {
@@ -306,7 +314,7 @@ function assListIterate(tx, res) {
 		dateDue = new Date(dateDue.getTimezoneOffset()*60000 + dateDue.getTime());
 		var dateSub = new Date(r.date_submitted);
 		dateSub = new Date(dateSub.getTimezoneOffset()*60000 + dateSub.getTime());
-		var onTime = dateDue.getTime() >= dateSub.getTime();
+		var onTime = dateDue.getTime() >= (isOut ? Date.now() : dateSub.getTime());
 		var date = isOut ? dateDue.toDateString() : dateSub.toDateString();
 		var color = onTime ? 'style="color:#606060;text-shadow:1px 1px 0px #fff"' : 'style="color:#b65455;text-shadow:1px 1px 0px #fff"';
 		// build the element
@@ -327,6 +335,13 @@ function assListIterate(tx, res) {
 			$("#outstandingAssList").append(li);
 		}
 	}
+	if(rs.length <= 0){
+		toggleTaskForm(true);
+		toggleTaskForm(false);
+	}
+	else {
+		toggleTaskForm(true);
+	}
 	refreshLists();
 }//}
 //}
@@ -344,7 +359,8 @@ function handleEditClassForm() {
 }
 //{ Edit Class dependences
 function editClassSuccess(tx, result) {
-	$.mobile.changePage("index.html#homeView");
+	displayClass();
+	$( "#editView" ).popup( "close" )
 }
 function editClassFail(tx, result) {
 	alert("There was a problem modifying the class. \nERROR MESSAGE: " + result.message);
@@ -388,7 +404,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	// convert weight to percentages
 	var achieved 	= (weight <= 0 ? 0 : Math.ceil(achieved / weight * 100));
 	var lost	 	= (weight <= 0 ? 0 : Math.floor(lost / weight * 100));
-	var itemTotal 	= (weight <= 0 ? 0 : Math.ceil(item.weight_total / weight * 100));
+	var itemTotal 	= (weight <= 0 ? 100 : Math.ceil(item.weight_total / weight * 100));
 	var itemAchieved = 0;
 	var itemLost = 0;
 	achieved = Math.min(achieved, 100);
@@ -448,7 +464,6 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 			+ '</li>';
 	// append assignment item and refresh list
 	$("#assView ul.addToHead").append(li2);
-	refreshLists();
 	
 	// set the edit form values
 	populateTypeList(item.type_name);
@@ -462,7 +477,6 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	$("#editAssGrade").val(Math.ceil(item.weight_achieved * 100));
 	$("#editAssGrade").slider("refresh");
 	$("#editAssWeight").val(item.weight_total);
-	$("#editAssWeight").spinbox();
 	
 	// set the late label
 	var due = (new Date(item.date_due)).getTime();
@@ -476,7 +490,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 	
 	// toggle form off
 	toggleEditForm(true);
-	
+	refreshLists();
 }//}
 //}
 
@@ -588,7 +602,7 @@ $(window).on("pageshow", revealCircles);
 $(document).on("collapsibleexpand", function() {
 	var str = $("#taskToggle").text();
 	if(str == "Cancel"){
-		toggleTaskForm();
+		toggleTaskForm(false);
 	}
 	$(".circle").circleProgress("redraw");
 });

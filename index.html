@@ -65,7 +65,7 @@
 				},1000);
 			</script>
 			</footer>
-		</div><!-- end page --> 
+		</div>  --> 
 		
 <!-- HOME VIEW -->
 		<div data-role="page" id="homeView">
@@ -85,7 +85,7 @@
 					</li>
 					<li class="ui-field-contain addClassForm" style="display:none">
 						<label for="addClassDesc">Description:</label>
-						<textarea data-mini="true" type="text" name="addClassDesc" id="addClassDesc" value="" placeholder="Intro to psychology" data-clear-btn="true" maxlength="250"></textarea>
+						<textarea data-mini="true" name="addClassDesc" id="addClassDesc" placeholder="Intro to psychology" data-clear-btn="true" maxlength="250" rows="3" data-autogrow="false"></textarea>
 					</li>
 					<li class="ui-field-contain addClassForm" style="display:none">
 						<label for="addClassGoal">Target Grade:</label>
@@ -153,7 +153,7 @@
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
 							<label for="addAssDesc">Description:</label>
-							<textarea data-mini="true" type="text" name="addAssDesc" id="addAssDesc" value="" placeholder="Link between sport concussions and poor academic performance." data-clear-btn="true" maxlength="250"></textarea>
+							<textarea data-mini="true" name="addAssDesc" id="addAssDesc" placeholder="Group presentation on a neurological disease topic." data-clear-btn="true" maxlength="250" rows="3" data-autogrow="false"></textarea>
 						</li>
 						<li class="ui-field-contain taskForm" style="display:none">
 							<label for="addAssDate">Due Date:</label>
@@ -188,7 +188,7 @@
 					<label for="editClassCode">Class Code:</label>
 					<input data-mini="true" type="text" name="editClassCode" id="editClassCode" value=""/>
 					<label for="editClassDesc">Description:</label>
-					<textarea data-mini="true" type="text" name="editClassDesc" id="editClassDesc" value="">Introduction to animal anatomy.</textarea>
+					<textarea data-mini="true" name="editClassDesc" id="editClassDesc" rows="3" data-autogrow="false">Introduction to animal anatomy.</textarea>
 					<label for="editClassGoal">Target Grade:</label>
 					<input type="range" name="editClassGoal" id="editClassGoal" data-mini="true" value="0" min="0" max="100" data-highlight="true" />
 					<label for="editClassPass">Pass Grade:</label>
@@ -207,13 +207,6 @@
 			<header data-role="header" style="overflow:hidden" data-position="fixed" data-tap-toggle="false">
 				<h1>Weight2Grade</h1>
 				<a href="#classView" data-icon="back" class="ui-btn-left" style="padding-bottom: 5px">Back</a>
-				<!--<nav data-role="navbar">
-					<ul>
-						<li><a href="#assView" class="ui-btn-active ui-state-persist" data-icon="bars">List View</a></li>
-						<li><a href="#list" data-icon="star">Priority View</a></li>
-						<li><a href="#options" data-icon="gear">Options</a></li>
-					</ul>
-				</nav>-->
 			</header>
 			<section data-role="content" style="margin:-1px">
 				<ul data-role="listview" class="addToHead" data-split-icon="edit">
@@ -238,7 +231,7 @@
 					<label for="editAssName">Name:</label>
 					<input readonly="readonly" class="disabled" data-mini="true" type="text" name="editAssName" id="editAssName" value="Test Name" maxlength="30"/>
 					<label for="editAssDesc">Description:</label>
-					<textarea readonly="readonly" class="disabled" data-mini="true" type="text" name="editAssDesc" id="editAssDesc" data-clear-btn="true" maxlength="250" rows="10"></textarea>
+					<textarea readonly="readonly" class="disabled" data-mini="true" type="text" name="editAssDesc" id="editAssDesc" data-clear-btn="true" maxlength="250" rows="3" data-autogrow="false"></textarea>
 					<fieldset class="ui-grid-a">
 						<div class="ui-block-a">
 							<label for="editAssDate">Due Date:</label>

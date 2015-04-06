@@ -6,10 +6,15 @@
 */
 
 //{ Toggles the Add Class Form Open & Closed
-function toggleAddForm() {
-	$(".addClassForm").toggle("fast");
+function toggleAddForm(close) {
+	if(close) {
+		$(".addClassForm").toggle(false);
+	}
+	else {
+		$(".addClassForm").toggle("fast");
+	}
 	var str = $("#addToggle").text();
-	if(str == "Add Class")
+	if(str == "Add Class" && !close)
 	{
 		$("#addToggle").text("Cancel")
 					   .removeClass("ui-icon-plus")
@@ -24,10 +29,15 @@ function toggleAddForm() {
 }//}
 
 //{ Toggles the Add Task Form Open & Closed
-function toggleTaskForm() {
-	$(".taskForm").toggle("fast");
+function toggleTaskForm(close) {
+	if(close) {
+		$(".taskForm").toggle(false);
+	}
+	else {
+		$(".taskForm").toggle("fast");
+	}
 	var str = $("#taskToggle").text();
-	if(str == "Add Task")
+	if(str == "Add Task" && !close)
 	{
 		$("#taskToggle").text("Cancel")
 					   .removeClass("ui-icon-plus")
@@ -179,10 +189,15 @@ function sanitize(str, code){
 }//}
 
 //{ Sets the classId session variable
-function setClassId(id, name) {
+function setClassId(id) {
 	localStorage.setItem("classID", id);
-	localStorage.setItem("className", name);
 }//}
+
+//{ Sets the className session variable
+function setClassName(name) {
+	localStorage.setItem("className", name);
+}
+//}
 
 //{ Sets the assignmnetId session variable
 function setAssId(id) {
@@ -354,6 +369,3 @@ function refreshValidation() {
 		}
 	});//}
 }
-
-
-

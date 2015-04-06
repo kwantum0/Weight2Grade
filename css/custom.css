@@ -11,7 +11,6 @@
 input[data-role="spinbox"] {
 	background-color: #fff;
 	width: 45px !important;
-	height: 31px !important;
 }
 #assEdit label {
 	margin-top: 10px;
@@ -42,7 +41,7 @@ input[data-role="spinbox"] {
 	background-color: #e9e9e9 !important;
 }
 ul.hasBadges.addToHead  > li > a > h3 {
-	margin-left: 30px;
+	margin-left: 0px;
 	margin-top: -17px;
 }
 .small {
