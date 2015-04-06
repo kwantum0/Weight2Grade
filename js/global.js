@@ -437,7 +437,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 		lost -= itemLost;
 		centerBars = '<div style="height:20px;margin-left:' + achieved + '%;position:absolute;width: '+ itemAchieved +'%" role="progressbar" class="progress-bar progress-bar-info">'
 				   + itemAchieved + '</div>'
-				   + '<div style="float: right; width: '+ itemLost +'%" role="progressbar" class="progress-bar progress-bar-alert">'
+				   + '<div style="float: right; height:20px;right:' + lost + '%;position:absolute;width: '+ itemLost +'%" role="progressbar" class="progress-bar progress-bar-alert">'
 				   + itemLost + '</div>'
 	}
 	
