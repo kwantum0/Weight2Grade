@@ -10,7 +10,7 @@
  ****************************/
 $(document).ready(function() {
 	// turn off all animations
-	jQuery.fx.off = true;
+	//jQuery.fx.off = true;
 	//{ DATABASE
 	// check if setup is complete
 	var setup_complete = localStorage.getItem("setup");
@@ -434,7 +434,7 @@ function buildAssignmentHeader(item, total, weight, achieved, lost, comp){
 			   + itemTotal + '</div>';
 	if(isMarked){
 		itemAchieved = Math.ceil(itemTotal * item.weight_achieved);
-		itemLost = itemTotal - itemAchieved;
+		itemLost = item.is_bonus == 'true' ? 0 : itemTotal - itemAchieved;
 		achieved -= itemAchieved;
 		lost -= itemLost;
 		centerBars = '<div style="height:20px;margin-left:' + achieved + '%;position:absolute;width: '+ itemAchieved +'%" role="progressbar" class="progress-bar progress-bar-info">'
