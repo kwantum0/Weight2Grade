@@ -152,14 +152,14 @@ div.ui-slider > div.ui-slider-track > div.ui-slider-bg {
 	font-weight: normal;
 }
 .circle ~ strong {
-	display: inline-block;
-	line-height: 27px;
-	margin-left: -20px;
-	margin-top: 4px;
-}
-.circle ~ strong span {
-	font-size: 125%;
-	vertical-align: middle;
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 92px;
+	width: 115px;
+	text-align: right;
+	line-height: 172px;
 }
 div.ui-block-b > div.ui-slider {
 	width: 100%;

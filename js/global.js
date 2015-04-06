@@ -612,20 +612,3 @@ $(document).on("collapsibleexpand", function() {
 	$(".circle").circleProgress("redraw");
 });
 //}
-
-//{ Garbage?
-/*$("#markedAssList > li > a").hover(function() {
-	// on enter
-	$("#hoverGrade2").show();
-	var weight = parseInt($(this).find(".circle").attr('data-weight'));
-	var total = parseInt($("#bar").attr('data-total-weight'));
-	var percent = weight / total * 100;
-	$("#hoverGrade").width(percent.toString() + "%");
-}, function() {
-	// on leave
-	$("#hoverGrade2").hide();
-	$("#hoverGrade2").text("");
-	$("#hoverGrade2").width(0);
-});*/
-//}
-
